@@ -62,7 +62,7 @@ group :test do
   gem "selenium-webdriver"
 
   # Shoulda matchers for cleaner model specs
-  gem "shoulda-matchers", "~> 5.0"
+  gem "shoulda-matchers", "~> 7.0"
 end
 
 gem "bootstrap", "~> 5.3.0" # Use the latest Bootstrap version
