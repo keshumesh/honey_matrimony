@@ -81,7 +81,7 @@ gem "image_processing", "~> 1.12"
 
 # OAuth for Google and Facebook login
 gem "omniauth", "~> 2.1"
-gem "omniauth-rails_csrf_protection", "~> 1.0"
+gem "omniauth-rails_csrf_protection", "~> 2.0"
 gem "omniauth-google-oauth2", "~> 1.1"
 gem "omniauth-facebook", "~> 9.0"
 
