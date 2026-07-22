@@ -1,0 +1,334 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Sidebar Menu -->
+    <%= render 'sidebar_menu' %>
+
+    <!-- Main Content -->
+    <div class="col-lg-9">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">➕ Add New User</h5>
+        </div>
+        <div class="card-body">
+          <% if @user.errors.any? %>
+            <div class="alert alert-danger alert-dismissible fade show">
+              <h5><%= pluralize(@user.errors.count, "error") %> prohibited this user from being created:</h5>
+              <ul class="mb-0">
+                <% @user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          <% end %>
+
+          <%= form_with model: @user, url: admin_users_path, method: :post, local: true do |form| %>
+            <!-- Role Selection Section -->
+            <div class="border-bottom pb-4 mb-4">
+              <h5 class="mb-3">Account Type</h5>
+              
+              <div class="mb-3">
+                <%= form.label :role, "Select Role *" %>
+                <%= form.select :role, [["👤 Regular User (Matrimony Profile)", "user"], ["👔 Manager (Can manage users)", "manager"], ["👑 Admin (Full Access)", "admin"]], 
+                    { include_blank: "Select..." }, class: "form-select", id: "user_role", required: true %>
+              </div>
+              
+              <div class="alert alert-info small mt-3 mb-0">
+                <strong>Regular User:</strong> Browse profiles & create matrimony profile<br>
+                <strong>Manager:</strong> All user features + manage user accounts<br>
+                <strong>Admin:</strong> Full system administrator access
+              </div>
+            </div>
+
+            <!-- Personal Details Section -->
+            <div class="border-bottom pb-4 mb-4">
+              <h5 class="mb-3">Personal Details</h5>
+              
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <%= form.label :first_name, "First Name *" %>
+                    <%= form.text_field :first_name, class: "form-control", required: true %>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <%= form.label :middle_name, "Middle Name" %>
+                    <%= form.text_field :middle_name, class: "form-control" %>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                    <%= form.label :last_name, "Last Name" %>
+                    <%= form.text_field :last_name, class: "form-control" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :email, "Email Address *" %>
+                    <%= form.email_field :email, class: "form-control", required: true %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :mobile_no, "Mobile Number *" %>
+                    <%= form.text_field :mobile_no, class: "form-control", placeholder: "10 digit number", required: true %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :gender, "Gender" %>
+                    <%= form.select :gender, [["Male", "Male"], ["Female", "Female"]], 
+                        { include_blank: "Select..." }, class: "form-select" %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :dob, "Date of Birth" %>
+                    <%= form.date_field :dob, class: "form-control" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :profile_for, "Profile For" %>
+                    <%= form.select :profile_for, ["Self", "Son", "Daughter", "Brother", "Sister", "Friend"], 
+                        { include_blank: "Select..." }, class: "form-select" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Matrimony Details Section -->
+            <div class="border-bottom pb-4 mb-4">
+              <h5 class="mb-3">Matrimony Details</h5>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :height, "Height" %>
+                    <%= form.select :height, ["4'10\"", "4'11\"", "5'", "5'1\"", "5'2\"", "5'3\"", "5'4\"", "5'5\"", "5'6\"", "5'7\"", "5'8\"", "5'9\"", "5'10\"", "5'11\"", "6'", "6'1\"", "6'2\""], 
+                        { include_blank: "Select..." }, class: "form-select" %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :complexion, "Complexion" %>
+                    <%= form.select :complexion, ["Fair", "Very Fair", "Wheatish", "Wheatish Medium", "Wheatish Brown", "Brown", "Dark"], 
+                        { include_blank: "Select...", selected: 'Fair' }, class: "form-select" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :marital_status, "Marital Status" %>
+                    <%= form.select :marital_status, ["Never Married", "Widowed", "Divorced", "Separated"], 
+                        { include_blank: "Select...", selected: 'Never Married' }, class: "form-select" %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :religion, "Religion" %>
+                    <%= form.select :religion, ["Hindu", "Muslim", "Christian", "Sikh", "Buddhist", "Jain", "Jewish", "Parsi", "Other"], 
+                        { include_blank: "Select...", selected: 'Hindu' }, class: "form-select" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :mother_tongue, "Mother Tongue" %>
+                    <%= form.text_field :mother_tongue, class: "form-control" %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :caste, "Caste" %>
+                    <%= form.text_field :caste, class: "form-control" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :manglik, "Manglik Status" %>
+                    <%= form.select :manglik, ["Yes", "No", "Not Sure"], { include_blank: "Select...", selected: 'No' }, class: "form-select" %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :rashi, "Rashi (Star)" %>
+                    <%= form.text_field :rashi, class: "form-control" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Professional Details Section -->
+            <div class="border-bottom pb-4 mb-4">
+              <h5 class="mb-3">Professional Details</h5>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :heighst_education, "Highest Education" %>
+                    <%= form.select :heighst_education, ["High School", "Intermediate", "Bachelor", "Master", "PhD", "Other"], 
+                        { include_blank: "Select..." }, class: "form-select" %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :job, "Job Profile" %>
+                    <%= form.text_field :job, class: "form-control" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :organization_name, "Organization Name" %>
+                    <%= form.text_field :organization_name, class: "form-control" %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :annual_income, "Annual Income" %>
+                    <%= form.text_field :annual_income, class: "form-control" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Family Details Section -->
+            <div class="border-bottom pb-4 mb-4">
+              <h5 class="mb-3">Family Details</h5>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :f_first_name, "Father's Name" %>
+                    <%= form.text_field :f_first_name, class: "form-control" %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :m_first_name, "Mother's Name" %>
+                    <%= form.text_field :m_first_name, class: "form-control" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :brothers, "Number of Brothers" %>
+                    <%= form.number_field :brothers, class: "form-control", min: 0 %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :sisters, "Number of Sisters" %>
+                    <%= form.number_field :sisters, class: "form-control", min: 0 %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <%= form.label :address, "Address" %>
+                <%= form.text_area :address, class: "form-control", rows: 3 %>
+              </div>
+            </div>
+
+            <!-- Photos & Medical Details Section -->
+            <div class="border-bottom pb-4 mb-4">
+              <h5 class="mb-3">Photos & Medical Information</h5>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :avatar, "Profile Photo (Avatar)" %>
+                    <%= form.file_field :avatar, class: "form-control", accept: "image/png,image/jpeg,image/gif" %>
+                    <small class="text-muted">JPG, PNG, GIF</small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :additional_photos, "Additional Photos" %>
+                    <%= form.file_field :additional_photos, class: "form-control", accept: "image/png,image/jpeg,image/gif" %>
+                    <small class="text-muted">JPG, PNG, GIF</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :blood_group, "Blood Group" %>
+                    <%= form.select :blood_group, ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-", "Not Sure"], 
+                        { include_blank: "Select..." }, class: "form-select" %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :extra_phone_number, "Extra Phone Number" %>
+                    <%= form.text_field :extra_phone_number, class: "form-control", placeholder: "10 digit number" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :maternal_surname, "Maternal Surname" %>
+                    <%= form.text_field :maternal_surname, class: "form-control" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Credentials Section -->
+            <div class="border-bottom pb-4 mb-4">
+              <h5 class="mb-3">Account Credentials</h5>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :password, "Password *" %>
+                    <%= form.password_field :password, class: "form-control", placeholder: "Minimum 6 characters", required: true %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :password_confirmation, "Confirm Password *" %>
+                    <%= form.password_field :password_confirmation, class: "form-control", placeholder: "Confirm password", required: true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2 mb-3">
+              <%= form.submit "Create User", class: "btn btn-primary btn-lg" %>
+            </div>
+          <% end %>
+
+          <hr class="my-4">
+
+          <%= link_to "← Back to Users", admin_users_path, class: "btn btn-secondary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

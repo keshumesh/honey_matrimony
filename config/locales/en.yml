@@ -1,0 +1,210 @@
+en:
+  # Navigation
+  home: "Home"
+  browse_profiles: "Browse Profiles"
+  dashboard: "Dashboard"
+  management: "Management"
+  manage_users: "Manage Users"
+  system_settings: "System Settings"
+  my_profile: "My Profile"
+  back_to_home: "Back to Home"
+  
+  # Authentication
+  login: "Login"
+  signup: "Sign Up"
+  logout: "Logout"
+  email: "Email"
+  password: "Password"
+  password_confirmation: "Confirm Password"
+  
+  # Homepage Hero
+  hero_title: "Find Your Perfect Match"
+  hero_subtitle: "25+ years of bringing people together. Join thousands of happy couples who found their soulmate with us."
+  get_started: "Get Started"
+  
+  # Homepage Quick Signup
+  quick_signup: "Quick Signup"
+  quick_signup_desc: "Full details later - Create profile in seconds"
+  first_name: "First Name"
+  middle_name: "Middle Name"
+  last_name: "Last Name"
+  mobile_no: "Mobile Number"
+  gender: "Gender"
+  password_placeholder: "Password (6+ chars)"
+  mobile_placeholder: "Mobile (10 digits)"
+  create_profile: "Create Profile (It's Free)"
+  already_member: "Already a member?"
+  login_here: "Login here"
+  
+  # Why Choose Us
+  why_honey_matrimony: "Why Honey Matrimony"
+  trusted_platform: "Join India's most trusted matrimony platform with 25+ years of experience"
+  verified_profiles: "100% Verified Profiles"
+  verified_desc: "Every profile is personally verified to ensure authenticity and safety"
+  privacy_control: "Complete Privacy Control"
+  privacy_desc: "You decide who sees your profile and when. Full control over your privacy"
+  success_stories: "3000+ Success Stories"
+  success_desc: "Thousands of couples have found their perfect match on our platform"
+  
+  # Statistics
+  couples_paired: "Couples Paired"
+  active_users: "Active Users"
+  members_male: "Members (Male)"
+  members_female: "Members (Female)"
+  
+  # How It Works
+  three_steps: "Three Simple Steps"
+  finding_easy: "Finding your perfect match has never been easier"
+  step1_create: "1. Create Profile"
+  step1_desc: "Fill your details and upload your photo. It takes just 2 minutes!"
+  step2_browse: "2. Browse & Search"
+  step2_desc: "Search by preferences and browse thousands of verified profiles"
+  step3_connect: "3. Connect & Chat"
+  step3_desc: "Send interests, message, and chat with your matches"
+  
+  # CTA
+  ready_to_match: "Ready to Find Your Match?"
+  join_everyday: "Join thousands of people finding love every day"
+  signup_free: "Sign Up Now - It's Free!"
+  join_free: "Join Free"
+  terms_conditions: "Terms & Conditions"
+  agree_to: "I agree to"
+  
+  # Signup Page / User Interactions
+  create_your_profile: "Create Your Profile"
+  join_simple_steps: "Join Honey Matrimony in Simple Steps"
+  step_1_create: "✓ Step 1: Create Profile"
+  step_2_details: "Step 2: Details"
+  step_3_account: "Step 3: Account"
+  account_type: "Account Type"
+  select_account_type: "Select Account Type *"
+  regular_user_desc: "Regular User (Matrimony Profile)"
+  admin_desc: "Admin (System Admin)"
+  regular_user_info: "Regular User: Browse profiles & create matrimony profile"
+  admin_info: "Admin: System administrator (personal details only)"
+  basic_information: "Basic Information"
+  profile_for: "Profile For (Optional)"
+  blood_group: "Blood Group"
+  enter_first_name: "Enter first name"
+  enter_last_name: "Enter last name"
+  select_gender: "Select Gender"
+  digit_number: "10 digit number"
+  next_step: "Next Step"
+  previous_step: "Back"
+  complete_signup: "Complete Signup"
+  required_field_msg: "This field is required"
+  already_member: "Already have an account?"
+  login_here: "Login here"
+  height: "Height"
+  religion: "Religion"
+  caste: "Caste"
+  marital_status: "Marital Status"
+  complexion: "Complexion"
+  mother_tongue: "Mother Tongue"
+  
+  # Professional Details
+  job: "Job"
+  organization_name: "Organization Name"
+  annual_income: "Annual Income"
+  
+  # Family Details
+  family_status: "Family Status"
+  family_details: "Family Details"
+  father_occupation: "Father's Occupation"
+  mother_occupation: "Mother's Occupation"
+  
+  # Additional Details
+  hobbies: "Hobbies & Interests"
+  highest_educational_details: "Highest Educational Details"
+  food_type: "Food Type"
+  manglik: "Manglik Status"
+  any_requirement: "Any Special Requirements"
+  
+  # Buttons
+  save: "Save"
+  submit: "Submit"
+  update: "Update"
+  delete: "Delete"
+  cancel: "Cancel"
+  edit: "Edit"
+  view: "View"
+  add_new_user: "Add New User"
+  
+  # Messages
+  welcome: "Welcome"
+  profile_created: "Profile created successfully!"
+  profile_updated: "Profile updated successfully!"
+  user_deleted: "User deleted successfully!"
+  
+  # Errors
+  error: "Error"
+  errors: "errors"
+  required_field: "This field is required"
+  
+  # User Interactions
+  express_interest: "Express Interest"
+  shortlist_profile: "Add to Shortlist"
+  add_notes: "Add Notes"
+  reject_profile: "Not Interested"
+  my_interests: "My Interests"
+  received_interests: "Received Interests"
+  shortlisted_profiles: "Shortlisted Profiles"
+  interest_received_from: "Interest received from"
+  accepted: "Accepted"
+  pending: "Pending"
+  declined: "Declined"
+  accept_interest: "Accept"
+  decline_interest: "Decline"
+  interested_profiles: "Profiles I'm Interested In"
+  my_shortlist: "My Shortlist"
+  notifications: "Notifications"
+  profile_notes: "Profile Notes"
+  write_notes: "Write your personal notes about this profile..."
+  save_notes: "Save Notes"
+  no_interests_yet: "No interests expressed yet"
+  no_shortlist_yet: "No profiles shortlisted yet"
+  are_you_sure: "Are you sure?"
+  profile: "Profile"
+  date: "Date"
+  action: "Action"
+  gender: "Gender"
+  
+  # Dashboard
+  matrimony_dashboard: "Matrimony Dashboard"
+  profile_overview: "Profile Overview"
+  suggested_matches: "Suggested Matches"
+  likes_favorites: "Likes & Favorites"
+  activity_feed: "Activity Feed"
+  notes_tags: "Notes & Tags"
+  settings: "Settings"
+  years_old: "years old"
+  years: "years"
+  member_since: "Member Since"
+  edit_profile: "Edit Profile"
+  view_profile: "View Profile"
+  interests_sent: "Interests Sent"
+  interests_received: "Interests Received"
+  profiles_shortlisted: "Profiles Shortlisted"
+  suggested_profiles: "Suggested Profiles"
+  no_matches_available: "No matches available at the moment. Check back later!"
+  recent_activity: "Recent Activity"
+  expressed_interest: "expressed interest in you"
+  ago: "ago"
+  view_all_interests: "View All Interests"
+  no_activity_yet: "No activity yet"
+  view_all_shortlist: "View All Shortlist"
+  manage: "Manage"
+  change_password: "Change Password"
+  change: "Change"
+  account_settings: "Account Settings"
+  privacy_settings: "Privacy Settings"
+  cancel: "Cancel"
+  
+  # ActiveRecord Error Messages
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            mobile_no:
+              taken: "has already been taken"

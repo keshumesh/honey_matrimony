@@ -1,0 +1,210 @@
+hi:
+  # Navigation
+  home: "होम"
+  browse_profiles: "प्रोफाइल ब्राउज़ करें"
+  dashboard: "डैशबोर्ड"
+  management: "प्रबंधन"
+  manage_users: "उपयोगकर्ताओं को प्रबंधित करें"
+  system_settings: "सिस्टम सेटिंग्स"
+  my_profile: "मेरी प्रोफाइल"
+  back_to_home: "होम पर वापस जाएं"
+  
+  # Authentication
+  login: "लॉगिन"
+  signup: "साइन अप"
+  logout: "लॉगआउट"
+  email: "ईमेल"
+  password: "पासवर्ड"
+  password_confirmation: "पासवर्ड की पुष्टि करें"
+  
+  # Homepage Hero
+  hero_title: "अपना सही साथी खोजें"
+  hero_subtitle: "25+ वर्षों से लोगों को एक साथ ला रहे हैं। हजारों खुश जोड़ों से जुड़ें जिन्होंने हमारे साथ अपना आत्मा साथी पाया है।"
+  get_started: "शुरु करें"
+  
+  # Homepage Quick Signup
+  quick_signup: "त्वरित साइन अप"
+  quick_signup_desc: "पूरी जानकारी बाद में - कुछ सेकंड में प्रोफाइल बनाएं"
+  first_name: "पहला नाम"
+  middle_name: "मध्य नाम"
+  last_name: "अंतिम नाम"
+  mobile_no: "मोबाइल नंबर"
+  gender: "लिंग"
+  password_placeholder: "पासवर्ड (6+ वर्ण)"
+  mobile_placeholder: "मोबाइल (10 अंक)"
+  create_profile: "प्रोफाइल बनाएं (यह मुफ्त है)"
+  already_member: "पहले से सदस्य हैं?"
+  login_here: "यहां लॉगिन करें"
+  
+  # Why Choose Us
+  why_honey_matrimony: "हनी मैट्रिमोनी क्यों चुनें"
+  trusted_platform: "भारत का सबसे विश्वसनीय मैट्रिमोनी प्लेटफॉर्म 25+ वर्षों के अनुभव के साथ जुड़ें"
+  verified_profiles: "100% सत्यापित प्रोफाइलें"
+  verified_desc: "हर प्रोफाइल व्यक्तिगत रूप से सत्यापित है ताकि प्रामाणिकता और सुरक्षा सुनिश्चित हो"
+  privacy_control: "संपूर्ण गोपनीयता नियंत्रण"
+  privacy_desc: "आप तय करें कि कौन आपकी प्रोफाइल देख सकता है और कब। आपकी गोपनीयता पर पूर्ण नियंत्रण"
+  success_stories: "3000+ सफलता की कहानियाँ"
+  success_desc: "हजारों जोड़ों ने हमारे प्लेटफॉर्म पर अपना सही साथी खोजा है"
+  
+  # Statistics
+  couples_paired: "जोड़ों को जोड़ा गया"
+  active_users: "सक्रिय उपयोगकर्ता"
+  members_male: "सदस्य (पुरुष)"
+  members_female: "सदस्य (महिला)"
+  
+  # How It Works
+  three_steps: "तीन सरल चरण"
+  finding_easy: "अपना सही साथी खोजना कभी आसान नहीं रहा"
+  step1_create: "1. प्रोफाइल बनाएं"
+  step1_desc: "अपनी जानकारी भरें और अपनी फोटो अपलोड करें। यह सिर्फ 2 मिनट में हो जाता है!"
+  step2_browse: "2. ब्राउज़ करें और खोजें"
+  step2_desc: "अपनी पसंद के अनुसार खोजें और हजारों सत्यापित प्रोफाइलें ब्राउज़ करें"
+  step3_connect: "3. कनेक्ट करें और चैट करें"
+  step3_desc: "रुचि भेजें, संदेश भेजें, और अपने मिलान के साथ चैट करें"
+  
+  # CTA
+  ready_to_match: "अपना साथी खोजने के लिए तैयार हैं?"
+  join_everyday: "हर दिन प्यार खोजने वाले हजारों लोगों से जुड़ें"
+  signup_free: "अभी साइन अप करें - यह मुफ्त है!"
+  join_free: "मुफ्त में जुड़ें"
+  terms_conditions: "नियम और शर्तें"
+  agree_to: "मैं सहमत हूं"
+  
+  # Signup Page
+  create_your_profile: "अपनी प्रोफाइल बनाएं"
+  join_simple_steps: "सरल चरणों में हनी मैट्रिमोनी से जुड़ें"
+  step_1_create: "✓ चरण 1: प्रोफाइल बनाएं"
+  step_2_details: "चरण 2: विवरण"
+  step_3_account: "चरण 3: खाता"
+  account_type: "खाता प्रकार"
+  select_account_type: "खाता प्रकार चुनें *"
+  regular_user_desc: "नियमित उपयोगकर्ता (मैट्रिमोनी प्रोफाइल)"
+  admin_desc: "प्रशासक (सिस्टम प्रशासक)"
+  regular_user_info: "नियमित उपयोगकर्ता: प्रोफाइल ब्राउज़ करें और मैट्रिमोनी प्रोफाइल बनाएं"
+  admin_info: "प्रशासक: सिस्टम प्रशासक (केवल व्यक्तिगत विवरण)"
+  basic_information: "मूल जानकारी"
+  profile_for: "प्रोफाइल किसके लिए है (वैकल्पिक)"
+  blood_group: "रक्त समूह"
+  enter_first_name: "पहला नाम दर्ज करें"
+  enter_last_name: "अंतिम नाम दर्ज करें"
+  select_gender: "लिंग चुनें"
+  digit_number: "10 अंकों की संख्या"
+  next_step: "अगला चरण"
+  previous_step: "पीछे जाएं"
+  complete_signup: "साइन अप पूरा करें"
+  required_field_msg: "यह फील्ड आवश्यक है"
+  already_member: "पहले से खाता है?"
+  login_here: "यहां लॉगिन करें"
+  height: "ऊंचाई"
+  religion: "धर्म"
+  caste: "जाति"
+  marital_status: "वैवाहिक स्थिति"
+  complexion: "रंग"
+  mother_tongue: "मातृभाषा"
+  
+  # Professional Details
+  job: "नौकरी"
+  organization_name: "संगठन का नाम"
+  annual_income: "वार्षिक आय"
+  
+  # Family Details
+  family_status: "पारिवारिक स्थिति"
+  family_details: "पारिवारिक विवरण"
+  father_occupation: "पिता का पेशा"
+  mother_occupation: "माता का पेशा"
+  
+  # Additional Details
+  hobbies: "शौक और रुचियाँ"
+  highest_educational_details: "सर्वोच्च शैक्षणिक विवरण"
+  food_type: "खाने का प्रकार"
+  manglik_status: "मांगलिक स्थिति"
+  any_requirement: "कोई विशेष आवश्यकता"
+  
+  # Buttons
+  save: "सहेजें"
+  submit: "जमा करें"
+  update: "अपडेट करें"
+  delete: "हटाएं"
+  cancel: "रद्द करें"
+  edit: "संपादित करें"
+  view: "देखें"
+  add_new_user: "नया उपयोगकर्ता जोड़ें"
+  
+  # Messages
+  welcome: "स्वागत है"
+  profile_created: "प्रोफाइल सफलतापूर्वक बनाया गया!"
+  profile_updated: "प्रोफाइल सफलतापूर्वक अपडेट किया गया!"
+  user_deleted: "उपयोगकर्ता सफलतापूर्वक हटाया गया!"
+  
+  # Errors
+  error: "त्रुटि"
+  errors: "त्रुटियाँ"
+  required_field: "यह फील्ड आवश्यक है"
+  
+  # User Interactions
+  express_interest: "रुचि दिखाएं"
+  shortlist_profile: "शॉर्टलिस्ट में जोड़ें"
+  add_notes: "नोट्स जोड़ें"
+  reject_profile: "रुचि नहीं है"
+  my_interests: "मेरी रुचियाँ"
+  received_interests: "प्राप्त रुचियाँ"
+  shortlisted_profiles: "शॉर्टलिस्ट की गई प्रोफाइलें"
+  interest_received_from: "रुचि प्राप्त हुई"
+  accepted: "स्वीकृत"
+  pending: "लंबित"
+  declined: "अस्वीकृत"
+  accept_interest: "स्वीकार करें"
+  decline_interest: "अस्वीकार करें"
+  interested_profiles: "जिन प्रोफाइलों में मेरी रुचि है"
+  my_shortlist: "मेरी शॉर्टलिस्ट"
+  notifications: "सूचनाएं"
+  profile_notes: "प्रोफाइल नोट्स"
+  write_notes: "इस प्रोफाइल के बारे में अपनी व्यक्तिगत नोट्स लिखें..."
+  save_notes: "नोट्स सहेजें"
+  no_interests_yet: "अभी तक कोई रुचि व्यक्त नहीं की गई है"
+  no_shortlist_yet: "अभी तक कोई प्रोफाइल शॉर्टलिस्ट नहीं की गई है"
+  are_you_sure: "क्या आप सुनिश्चित हैं?"
+  profile: "प्रोफाइल"
+  date: "तारीख"
+  action: "कार्रवाई"
+  gender: "लिंग"
+  
+  # Dashboard
+  matrimony_dashboard: "मैट्रिमोनी डैशबोर्ड"
+  profile_overview: "प्रोफाइल अवलोकन"
+  suggested_matches: "सुझाए गए मैच"
+  likes_favorites: "पसंद और पसंदीदा"
+  activity_feed: "गतिविधि फ़ीड"
+  notes_tags: "नोट्स और टैग"
+  settings: "सेटिंग्स"
+  years_old: "वर्ष पुरानी"
+  years: "वर्ष"
+  member_since: "सदस्य बने हुए"
+  edit_profile: "प्रोफाइल संपादित करें"
+  view_profile: "प्रोफाइल देखें"
+  interests_sent: "रुचियाँ भेजी गई"
+  interests_received: "रुचियाँ प्राप्त हुई"
+  profiles_shortlisted: "शॉर्टलिस्ट की गई प्रोफाइलें"
+  suggested_profiles: "सुझाई गई प्रोफाइलें"
+  no_matches_available: "अभी कोई मैच उपलब्ध नहीं है। बाद में जांचें!"
+  recent_activity: "हाल की गतिविधि"
+  expressed_interest: "ने आपमें रुचि दिखाई"
+  ago: "पहले"
+  view_all_interests: "सभी रुचियाँ देखें"
+  no_activity_yet: "अभी कोई गतिविधि नहीं"
+  view_all_shortlist: "सभी शॉर्टलिस्ट देखें"
+  manage: "प्रबंधित करें"
+  change_password: "पासवर्ड बदलें"
+  change: "बदलें"
+  account_settings: "खाता सेटिंग्स"
+  privacy_settings: "गोपनीयता सेटिंग्स"
+  cancel: "रद्द करें"
+  
+  # ActiveRecord Error Messages
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            mobile_no:
+              taken: "पहले से पंजीकृत है"

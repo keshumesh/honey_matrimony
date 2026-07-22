@@ -1,0 +1,474 @@
+<!-- Hero Section with Animation -->
+<section class="position-relative overflow-hidden" style="min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #ff6b9d 50%, #ee7a52 100%); display: flex; align-items: center;">
+  <!-- Animated Background Elements -->
+  <div class="position-absolute" style="top: -100px; left: -100px; width: 500px; height: 500px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; animation: float 6s ease-in-out infinite;"></div>
+  <div class="position-absolute" style="bottom: -150px; right: -150px; width: 600px; height: 600px; background: rgba(76, 175, 80, 0.15); border-radius: 50%; animation: float 8s ease-in-out infinite 1s;"></div>
+  
+  <div class="container-xl position-relative z-1">
+    <div class="row align-items-center">
+      <!-- Left Side - Hero Text -->
+      <div class="col-lg-6 text-white mb-5 mb-lg-0" style="animation: slideInLeft 0.8s ease-out;">
+        <h1 class="display-3 fw-bold mb-4" style="font-size: 3.5rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">
+          Find Your <span style="background: linear-gradient(135deg, #ff6b9d, #ee7a52); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Perfect Match</span>
+        </h1>
+        <p class="lead mb-5" style="font-size: 1.3rem; opacity: 0.95;">
+          🎉 Honey Matrimony is here! Your trusted platform to find your life partner. Join thousands of happy couples who found love through us.
+        </p>
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="<%= new_signup_path %>" class="btn btn-light btn-lg fw-bold px-5" style="border-radius: 50px; box-shadow: 0 8px 20px rgba(0,0,0,0.2);">
+            <i class="bi bi-heart-fill text-danger me-2"></i>Start for Free
+          </a>
+          <% if logged_in? %>
+            <%= link_to "Browse Profiles", users_path, class: "btn btn-outline-light btn-lg fw-bold px-5", style: "border-radius: 50px; border-width: 2px;" %>
+          <% else %>
+            <button type="button" class="btn btn-outline-light btn-lg fw-bold px-5" style="border-radius: 50px; border-width: 2px;" id="loginModalBtn" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="showLoginModal()">
+              Already a Member?
+            </button>
+          <% end %>
+        </div>
+        <p class="mt-4" style="opacity: 0.9;">✨ <strong>100% Safe & Secure</strong> • Verified Profiles • Privacy First</p>
+      </div>
+
+      <!-- Right Side - Features Section -->
+      <div class="col-lg-6" style="animation: slideInRight 0.8s ease-out;">
+        <div class="card shadow-lg border-0 rounded-4" style="background: rgba(255,255,255,0.98); backdrop-filter: blur(10px);">
+          <div class="card-body p-5">
+            <h4 class="card-title mb-4" style="color: #667eea; font-size: 1.5rem; font-weight: bold;">✨ Why Choose Us?</h4>
+            
+            <div style="margin-bottom: 20px;">
+              <h6 style="color: #e85d75; font-weight: bold; margin-bottom: 8px;">💯 Verified Profiles</h6>
+              <p style="color: #666; font-size: 14px; margin: 0;">All members are verified for authenticity</p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+              <h6 style="color: #e85d75; font-weight: bold; margin-bottom: 8px;">🔒 100% Privacy</h6>
+              <p style="color: #666; font-size: 14px; margin: 0;">Your data is safe and secure with us</p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+              <h6 style="color: #e85d75; font-weight: bold; margin-bottom: 8px;">🎯 AI Matching</h6>
+              <p style="color: #666; font-size: 14px; margin: 0;">Smart matching algorithm finds your perfect match</p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+              <h6 style="color: #e85d75; font-weight: bold; margin-bottom: 8px;">💬 24/7 Support</h6>
+              <p style="color: #666; font-size: 14px; margin: 0;">Our team is here to help you anytime</p>
+            </div>
+
+            <hr>
+
+            <div style="text-align: center; margin-top: 20px;">
+              <p style="color: #999; font-size: 13px; margin-bottom: 12px;">Join over <strong style="color: #e85d75;">50,000+ couples</strong> who found love!</p>
+              <a href="<%= new_signup_path %>" class="btn btn-lg fw-bold px-4" style="background: linear-gradient(135deg, #e85d75 0%, #f54a8b 100%); border: none; border-radius: 10px; color: white;">
+                Start Your Journey →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(30px); }
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+  </style>
+</section>
+
+<!-- Why Honey Matrimony Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #f5f7fa 0%, #e8eef2 100%);">
+  <div class="container-xl">
+    <div class="row text-center mb-5">
+      <div class="col-lg-8 mx-auto">
+        <h2 class="display-5 fw-bold mb-3" style="color: #667eea;">Why Choose Honey Matrimony?</h2>
+        <p class="lead text-muted">Your trusted companion in finding true love</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 p-4" style="border-left: 5px solid #ff6b9d; border-radius: 15px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 40px rgba(255, 107, 157, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.1)';">
+          <div class="fs-1 mb-3" style="color: #ff6b9d;">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h5 class="fw-bold mb-3">Verified Profiles</h5>
+          <p class="text-muted">All profiles are verified for authenticity. We ensure a safe, trustworthy community for genuine matrimony seekers.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 p-4" style="border-left: 5px solid #667eea; border-radius: 15px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 40px rgba(102, 126, 234, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.1)';">
+          <div class="fs-1 mb-3" style="color: #667eea;">
+            <i class="bi bi-lock"></i>
+          </div>
+          <h5 class="fw-bold mb-3">Complete Privacy</h5>
+          <p class="text-muted">Your personal information is protected. Control who sees your profile and photos - privacy is your priority.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 p-4" style="border-left: 5px solid #4CAF50; border-radius: 15px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 40px rgba(76, 175, 80, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.1)';">
+          <div class="fs-1 mb-3" style="color: #4CAF50;">
+            <i class="bi bi-heart"></i>
+          </div>
+          <h5 class="fw-bold mb-3">Smart Matching</h5>
+          <p class="text-muted">Our intelligent algorithm suggests compatible matches based on preferences and interests. Find your perfect partner easily.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section with Colorful Backgrounds -->
+<section class="py-5">
+  <div class="container-xl">
+    <div class="row text-center mb-5">
+      <div class="col-lg-8 mx-auto">
+        <h2 class="display-5 fw-bold mb-3" style="color: #333;">Amazing Features</h2>
+        <p class="lead text-muted">Everything you need to find your life partner</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-3 col-sm-6">
+        <div class="text-center p-4 rounded-4" style="background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%); color: white; min-height: 250px; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);">
+          <div class="fs-1 mb-3"><i class="bi bi-images"></i></div>
+          <h5 class="fw-bold mb-2">Photo Gallery</h5>
+          <p class="small">Upload up to 5 photos to showcase your best self</p>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="text-center p-4 rounded-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; min-height: 250px; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);">
+          <div class="fs-1 mb-3"><i class="bi bi-heart"></i></div>
+          <h5 class="fw-bold mb-2">Express Interest</h5>
+          <p class="small">Let someone know you're interested in meeting them</p>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="text-center p-4 rounded-4" style="background: linear-gradient(135deg, #ee7a52 0%, #ff9a56 100%); color: white; min-height: 250px; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 10px 30px rgba(238, 122, 82, 0.3);">
+          <div class="fs-1 mb-3"><i class="bi bi-star"></i></div>
+          <h5 class="fw-bold mb-2">Shortlist</h5>
+          <p class="small">Save your favorite profiles for later consideration</p>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="text-center p-4 rounded-4" style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white; min-height: 250px; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);">
+          <div class="fs-1 mb-3"><i class="bi bi-chat-heart"></i></div>
+          <h5 class="fw-bold mb-2">Private Notes</h5>
+          <p class="small">Add notes about profiles for your personal reference</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff6b9d 100%); color: white;">
+  <div class="container-xl">
+    <div class="row text-center g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="py-4">
+          <div class="display-5 fw-bold mb-2" style="font-size: 2.5rem;">💕</div>
+          <h3 class="fw-bold" style="font-size: 2rem;">---</h3>
+          <p class="mb-0 mt-2 opacity-75">Happy Couples</p>
+          <p class="small opacity-75">*(Coming Soon)</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="py-4">
+          <div class="display-5 fw-bold mb-2" style="font-size: 2.5rem;">👥</div>
+          <h3 class="fw-bold" style="font-size: 2rem;">---</h3>
+          <p class="mb-0 mt-2 opacity-75">Active Members</p>
+          <p class="small opacity-75">*(Coming Soon)</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="py-4">
+          <div class="display-5 fw-bold mb-2" style="font-size: 2.5rem;">⚡</div>
+          <h3 class="fw-bold" style="font-size: 2rem;">---</h3>
+          <p class="mb-0 mt-2 opacity-75">Matches Daily</p>
+          <p class="small opacity-75">*(Coming Soon)</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="py-4">
+          <div class="display-5 fw-bold mb-2" style="font-size: 2.5rem;">🌟</div>
+          <h3 class="fw-bold" style="font-size: 2rem;">---</h3>
+          <p class="mb-0 mt-2 opacity-75">Success Rate</p>
+          <p class="small opacity-75">*(Coming Soon)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-5" style="background: #f5f7fa;">
+  <div class="container-xl">
+    <div class="row text-center mb-5">
+      <div class="col-lg-8 mx-auto">
+        <h2 class="display-5 fw-bold mb-3" style="color: #667eea;">3 Simple Steps to Find Love</h2>
+        <p class="lead text-muted">It's as easy as 1, 2, 3!</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="text-center">
+          <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 100px; height: 100px; background: linear-gradient(135deg, #ff6b9d, #ff8fab); font-size: 40px; color: white; box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);">
+            <i class="bi bi-person-plus"></i>
+          </div>
+          <h5 class="fw-bold mb-3" style="color: #667eea; font-size: 1.3rem;">Step 1: Create Profile</h5>
+          <p class="text-muted">Sign up in minutes and create an authentic profile with your photos and preferences</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="text-center">
+          <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea, #764ba2); font-size: 40px; color: white; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);">
+            <i class="bi bi-search"></i>
+          </div>
+          <h5 class="fw-bold mb-3" style="color: #667eea; font-size: 1.3rem;">Step 2: Browse Profiles</h5>
+          <p class="text-muted">Browse through verified profiles and find people who match your preferences</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="text-center">
+          <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 100px; height: 100px; background: linear-gradient(135deg, #4CAF50, #66BB6A); font-size: 40px; color: white; box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);">
+            <i class="bi bi-chat-heart"></i>
+          </div>
+          <h5 class="fw-bold mb-3" style="color: #667eea; font-size: 1.3rem;">Step 3: Connect & Meet</h5>
+          <p class="text-muted">Express interest, connect with matches, and start your journey to finding love</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #ee7a52 0%, #ff9a56 50%, #ff6b9d 100%); color: white;">
+  <div class="container-xl text-center">
+    <h2 class="display-4 fw-bold mb-3">Ready to Find Your Perfect Match?</h2>
+    <p class="lead mb-5 opacity-90">Join Honey Matrimony today and start your journey to true love!</p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <% if !logged_in? %>
+        <%= link_to "Get Started for Free", new_user_path, class: "btn btn-light btn-lg fw-bold px-5", style: "border-radius: 50px;" %>
+      <% else %>
+        <%= link_to "Browse Profiles", users_path, class: "btn btn-light btn-lg fw-bold px-5", style: "border-radius: 50px;" %>
+      <% end %>
+      <a href="#quick-signup" class="btn btn-outline-light btn-lg fw-bold px-5" style="border-radius: 50px; border-width: 2px;" onclick="document.querySelector('#quick-signup').scrollIntoView({behavior: 'smooth'}); return false;">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  body {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<!-- Login Modal Popup on Home Page -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true" style="z-index: 9999;">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 480px;">
+    <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+      <!-- Gradient Header with Close Button -->
+      <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #ff6b9d 50%, #ee7a52 100%); padding: 30px; position: relative; overflow: hidden; display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <h2 class="text-white fw-bold mb-2" style="font-size: 1.8rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">
+            Welcome Back! 💕
+          </h2>
+          <p class="text-white opacity-90 mb-0" style="font-size: 0.9rem;">
+            Login to find your perfect match
+          </p>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="position: relative; top: -5px;"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body p-4">
+        <!-- Login Type Tabs -->
+        <ul class="nav nav-pills nav-fill mb-4" id="loginTabs" role="tablist" style="gap: 10px;">
+          <li class="nav-item" role="presentation" style="flex: 1;">
+            <button class="nav-link active w-100" id="email-tab" data-bs-toggle="pill" data-bs-target="#emailLogin" type="button" role="tab" style="border-radius: 10px; color: #667eea; border: 2px solid #667eea; background: transparent;">
+              <i class="bi bi-envelope me-2"></i>Email
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" style="flex: 1;">
+            <button class="nav-link w-100" id="mobile-tab" data-bs-toggle="pill" data-bs-target="#mobileLogin" type="button" role="tab" style="border-radius: 10px; color: #667eea; border: 2px solid #667eea; background: transparent;">
+              <i class="bi bi-phone me-2"></i>Mobile
+            </button>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="loginTabContent">
+          <!-- Email Login Tab -->
+          <div class="tab-pane fade show active" id="emailLogin" role="tabpanel">
+            <%= form_with url: sessions_path, method: :post, local: true do |form| %>
+              <%= form.hidden_field :login_type, value: "email" %>
+              
+              <div class="mb-4">
+                <label class="form-label fw-bold" style="color: #667eea;">
+                  <i class="bi bi-envelope me-2" style="color: #ff6b9d;"></i>Email Address
+                </label>
+                <%= form.email_field :email, class: "form-control form-control-lg", placeholder: "Enter your email", style: "border-radius: 10px; border: 2px solid #e0e0e0; padding: 12px 15px;" %>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label fw-bold" style="color: #667eea;">
+                  <i class="bi bi-lock me-2" style="color: #4CAF50;"></i>Password
+                </label>
+                <%= form.password_field :password, class: "form-control form-control-lg", placeholder: "Enter your password", style: "border-radius: 10px; border: 2px solid #e0e0e0; padding: 12px 15px;" %>
+              </div>
+
+              <div class="mb-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="rememberMeEmail" style="width: 18px; height: 18px; cursor: pointer;">
+                  <label class="form-check-label" for="rememberMeEmail" style="color: #666; cursor: pointer;">Remember me</label>
+                </div>
+              </div>
+
+              <div class="d-grid gap-2 mb-3">
+                <%= form.submit "Login with Email", class: "btn btn-lg fw-bold", style: "background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff6b9d 100%); border: none; border-radius: 10px; color: white; padding: 14px; font-size: 1rem;" %>
+              </div>
+            <% end %>
+          </div>
+
+          <!-- Mobile Login Tab -->
+          <div class="tab-pane fade" id="mobileLogin" role="tabpanel">
+            <%= form_with url: sessions_path, method: :post, local: true do |form| %>
+              <%= form.hidden_field :login_type, value: "mobile" %>
+              
+              <div class="mb-4">
+                <label class="form-label fw-bold" style="color: #667eea;">
+                  <i class="bi bi-phone me-2" style="color: #ff6b9d;"></i>Mobile Number
+                </label>
+                <%= form.text_field :mobile_no, class: "form-control form-control-lg", placeholder: "Enter your 10-digit mobile number", pattern: "\\d{10}", style: "border-radius: 10px; border: 2px solid #e0e0e0; padding: 12px 15px;" %>
+                <small class="text-muted">Format: 10 digits without +91</small>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label fw-bold" style="color: #667eea;">
+                  <i class="bi bi-lock me-2" style="color: #4CAF50;"></i>Password
+                </label>
+                <%= form.password_field :password, class: "form-control form-control-lg", placeholder: "Enter your password", style: "border-radius: 10px; border: 2px solid #e0e0e0; padding: 12px 15px;" %>
+              </div>
+
+              <div class="mb-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="rememberMeMobile" style="width: 18px; height: 18px; cursor: pointer;">
+                  <label class="form-check-label" for="rememberMeMobile" style="color: #666; cursor: pointer;">Remember me</label>
+                </div>
+              </div>
+
+              <div class="d-grid gap-2 mb-3">
+                <%= form.submit "Login with Mobile", class: "btn btn-lg fw-bold", style: "background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff6b9d 100%); border: none; border-radius: 10px; color: white; padding: 14px; font-size: 1rem;" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- OR Divider -->
+        <div class="d-flex align-items-center my-4">
+          <div style="flex: 1; height: 1px; background: #ddd;"></div>
+          <span class="px-3" style="color: #999; font-size: 0.9rem;">Quick Login</span>
+          <div style="flex: 1; height: 1px; background: #ddd;"></div>
+        </div>
+
+        <!-- Social Login Buttons -->
+        <div class="d-grid gap-2 mb-3">
+          <a href="/auth/google_oauth2" class="btn btn-lg fw-bold" style="background: #ffffff; border: 2px solid #f0f0f0; border-radius: 10px; color: #333; padding: 12px;">
+            <i class="bi bi-google me-2" style="color: #4285F4;"></i>Login with Google
+          </a>
+          <a href="/auth/facebook" class="btn btn-lg fw-bold" style="background: #ffffff; border: 2px solid #f0f0f0; border-radius: 10px; color: #333; padding: 12px;">
+            <i class="bi bi-facebook me-2" style="color: #1877F2;"></i>Login with Facebook
+          </a>
+        </div>
+
+        <!-- OR Divider -->
+        <div class="d-flex align-items-center my-3">
+          <div style="flex: 1; height: 1px; background: #ddd;"></div>
+          <span class="px-3" style="color: #999; font-size: 0.9rem;">OR</span>
+          <div style="flex: 1; height: 1px; background: #ddd;"></div>
+        </div>
+
+        <!-- Sign Up Link -->
+        <div class="text-center">
+          <p class="mb-2" style="color: #666;">Don't have an account?</p>
+          <a href="<%= new_user_path %>" class="btn btn-outline-primary w-100" style="border-radius: 10px; color: #667eea; border-color: #667eea; border-width: 2px;">Sign up free</a>
+        </div>
+
+        <p class="text-center small mt-3" style="color: #999;">
+          <i class="bi bi-shield-check" style="color: #4CAF50;"></i> Safe & Secure • No spam
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Initialize Modal with jQuery/Bootstrap -->
+<script>
+<!-- Initialize Login Modal -->
+<script>
+  // Function to show login modal
+  function showLoginModal() {
+    const modalElement = document.getElementById('loginModal');
+    if (typeof bootstrap !== 'undefined' && modalElement) {
+      try {
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+      } catch (err) {
+        console.error('Error showing modal:', err);
+      }
+    }
+  }
+
+  // Initialize modal trigger on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const modalElement = document.getElementById('loginModal');
+    const btn = document.getElementById('loginModalBtn');
+    
+    if (btn && modalElement) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        showLoginModal();
+      });
+    }
+  });
+</script>
+
+<style>
+  .form-control:focus,
+  .form-control:active {
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25) !important;
+  }
+
+  .form-control::placeholder {
+    color: #bbb;
+    font-style: italic;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(102, 126, 234, 0.5) !important;
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+</style>

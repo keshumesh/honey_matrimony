@@ -1,0 +1,93 @@
+<!-- Admin/Manager Sidebar Menu -->
+<div class="col-lg-3 mb-4 mb-lg-0">
+  <div class="card shadow-lg border-0 sticky-top" style="top: 80px;">
+    <div class="card-header <% if current_user.admin? %>bg-danger<% else %>bg-warning<% end %> text-white">
+      <h5 class="mb-0 fw-bold">
+        <% if current_user.admin? %>
+          👑 Admin Menu
+        <% else %>
+          👔 Manager Menu
+        <% end %>
+      </h5>
+    </div>
+    <div class="list-group list-group-flush">
+      <!-- Dashboard -->
+      <a href="<%= admin_dashboard_path %>" class="list-group-item list-group-item-action <% if current_page?(admin_dashboard_path) %>active bg-light<% end %>">
+        <i class="bi bi-speedometer2 me-2"></i>
+        <strong>Dashboard</strong>
+      </a>
+
+      <!-- Manage Users -->
+      <a href="<%= admin_users_path %>" class="list-group-item list-group-item-action <% if current_page?(admin_users_path) %>active bg-light<% end %>">
+        <i class="bi bi-people me-2"></i>
+        <strong>Manage Users</strong>
+      </a>
+
+      <!-- Add New User -->
+      <a href="<%= admin_new_user_path %>" class="list-group-item list-group-item-action">
+        <i class="bi bi-person-plus me-2"></i>
+        <strong>Add New User</strong>
+      </a>
+
+      <!-- Divider -->
+      <li class="list-group-item" style="cursor: default; padding: 0.5rem 1rem; background: #f8f9fa;"></li>
+
+      <% if current_user.admin? %>
+        <!-- Admin-Only Options -->
+        <a href="<%= root_path %>" class="list-group-item list-group-item-action">
+          <i class="bi bi-gear me-2"></i>
+          <strong>System Settings</strong>
+        </a>
+
+        <a href="<%= root_path %>" class="list-group-item list-group-item-action">
+          <i class="bi bi-graph-up me-2"></i>
+          <strong>Reports</strong>
+        </a>
+
+        <a href="<%= root_path %>" class="list-group-item list-group-item-action">
+          <i class="bi bi-shield-lock me-2"></i>
+          <strong>Security</strong>
+        </a>
+
+        <li class="list-group-item" style="cursor: default; padding: 0.5rem 1rem; background: #f8f9fa;"></li>
+      <% end %>
+
+      <!-- Browse Profiles -->
+      <a href="<%= users_path %>" class="list-group-item list-group-item-action">
+        <i class="bi bi-search me-2"></i>
+        <strong>Browse Profiles</strong>
+      </a>
+
+      <!-- View My Profile -->
+      <a href="<%= user_path(current_user) %>" class="list-group-item list-group-item-action">
+        <i class="bi bi-person-circle me-2"></i>
+        <strong>My Profile</strong>
+      </a>
+
+      <!-- Home -->
+      <a href="<%= root_path %>" class="list-group-item list-group-item-action">
+        <i class="bi bi-house me-2"></i>
+        <strong>Back to Home</strong>
+      </a>
+    </div>
+
+    <!-- User Info Card -->
+    <div class="card-footer <% if current_user.admin? %>bg-danger bg-opacity-10<% else %>bg-warning bg-opacity-10<% end %> p-3 border-top">
+      <div class="text-center">
+        <% if current_user.avatar.present? %>
+          <img src="<%= current_user.avatar.url(:thumb) %>" alt="Avatar" class="rounded-circle mb-2" style="width: 50px; height: 50px; object-fit: cover; border: 2px solid #dee2e6;">
+        <% else %>
+          <div class="rounded-circle <% if current_user.admin? %>bg-danger<% else %>bg-warning<% end %> d-inline-flex align-items-center justify-content-center text-white mb-2" style="width: 50px; height: 50px;">
+            <i class="bi bi-person" style="font-size: 24px;"></i>
+          </div>
+        <% end %>
+        <p class="mb-1 fw-bold"><small><%= current_user.first_name %> <%= current_user.last_name %></small></p>
+        <% if current_user.admin? %>
+          <span class="badge bg-danger">👑 Admin</span>
+        <% else %>
+          <span class="badge bg-warning">👔 Manager</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

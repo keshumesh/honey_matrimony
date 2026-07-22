@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Honey Matrimony" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <!-- Main Navigation Bar - Single Top Bar for All Pages -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+      <div class="container-xl">
+        <!-- Brand Logo -->
+        <%= link_to root_path, class: "navbar-brand d-flex align-items-center fw-bold" do %>
+          <i class="bi bi-heart-fill text-danger fs-5 me-2"></i>
+          <span class="fs-6 text-white">Honey Matrimony</span>
+        <% end %>
+
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler border-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Content -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <!-- Main Menu (Left Side) -->
+          <ul class="navbar-nav me-auto">
+            <!-- Home link - hide for logged-in users -->
+            <% unless logged_in? %>
+              <li class="nav-item">
+                <%= link_to "Home", root_path, class: "nav-link text-white" %>
+              </li>
+            <% end %>
+
+            <% if logged_in? %>
+              <!-- Browse Profiles - show for all logged-in users -->
+              <li class="nav-item">
+                <%= link_to "Browse", browse_users_path, class: "nav-link text-white" %>
+              </li>
+
+              <!-- Dashboard for all logged-in users -->
+              <li class="nav-item">
+                <% if is_admin? || current_user&.manager? %>
+                  <%= link_to "Dashboard", admin_dashboard_path, class: "nav-link text-white" %>
+                <% else %>
+                  <%= link_to "Dashboard", user_dashboard_path, class: "nav-link text-white" %>
+                <% end %>
+              </li>
+            <% end %>
+
+            <!-- Management dropdown for admin and manager only -->
+            <% if is_admin? || current_user&.manager? %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-gear"></i> Management
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                  <li><%= link_to "👥 Manage Users", admin_users_path, class: "dropdown-item" %></li>
+                  <% if is_admin? %>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><%= link_to "⚙️ System Settings", "#", class: "dropdown-item" %></li>
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
+          </ul>
+
+          <!-- Right Side Menu -->
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <!-- Notifications Icons (only for logged-in users) -->
+            <% if logged_in? %>
+              <li class="nav-item me-2">
+                <a href="<%= sent_interests_path %>" class="nav-link text-white" title="My Interests">
+                  <i class="bi bi-heart"></i>
+                  <% sent_interests_count = current_user.sent_interactions.where(interaction_type: 'interested').count %>
+                  <% if sent_interests_count > 0 %>
+                    <span class="badge rounded-pill bg-danger">
+                      <%= sent_interests_count %>
+                    </span>
+                  <% end %>
+                </a>
+              </li>
+
+              <li class="nav-item me-2">
+                <a href="<%= shortlisted_path %>" class="nav-link text-white" title="Shortlist">
+                  <i class="bi bi-star"></i>
+                  <% shortlist_count = current_user.sent_interactions.where(interaction_type: 'shortlist').count %>
+                  <% if shortlist_count > 0 %>
+                    <span class="badge rounded-pill bg-info">
+                      <%= shortlist_count %>
+                    </span>
+                  <% end %>
+                </a>
+              </li>
+
+              <li class="nav-item me-2">
+                <a href="<%= skipped_users_path %>" class="nav-link text-white" title="Skipped">
+                  <i class="bi bi-hand-thumbs-down"></i>
+                  <% skipped_count = current_user.sent_interactions.where(interaction_type: 'rejected').count %>
+                  <% if skipped_count > 0 %>
+                    <span class="badge rounded-pill bg-secondary">
+                      <%= skipped_count %>
+                    </span>
+                  <% end %>
+                </a>
+              </li>
+            <% end %>
+
+            <!-- Language Selector -->
+            <li class="nav-item dropdown me-2">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-globe"></i>
+                <span class="d-lg-inline d-none ms-1" style="font-size: 12px;">
+                  <% if I18n.locale == :hi %>
+                    हिंदी
+                  <% else %>
+                    EN
+                  <% end %>
+                </span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                <li><%= button_to "English", set_locale_path(locale: "en"), method: :post, class: "dropdown-item #{I18n.locale == :en ? 'active fw-bold' : ''}" %></li>
+                <li><%= button_to "हिंदी", set_locale_path(locale: "hi"), method: :post, class: "dropdown-item #{I18n.locale == :hi ? 'active fw-bold' : ''}" %></li>
+              </ul>
+            </li>
+
+            <% if logged_in? %>
+              <!-- User Account Dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle d-flex align-items-center text-white" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <% if current_user.avatar.present? %>
+                    <img src="<%= current_user.avatar.url(:thumb) %>" alt="Avatar" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; margin-right: 8px;">
+                  <% else %>
+                    <i class="bi bi-person-circle me-2"></i>
+                  <% end %>
+                  <span style="font-size: 13px;"><%= current_user.first_name %></span>
+                  <% if current_user.admin? %>
+                    <span class="badge ms-2 bg-danger" style="font-size: 10px;">Admin</span>
+                  <% elsif current_user.manager? %>
+                    <span class="badge ms-2 bg-warning text-dark" style="font-size: 10px;">Manager</span>
+                  <% end %>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                  <li><strong class="dropdown-header">👤 My Account</strong></li>
+                  <li><%= link_to "👁️ View Profile", user_path(current_user), class: "dropdown-item" %></li>
+                  <li><%= link_to "✏️ Edit Profile", edit_user_path(current_user), class: "dropdown-item" %></li>
+                  <% if current_user.regular_user? %>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><strong class="dropdown-header">💬 Interactions</strong></li>
+                    <li><%= link_to "❤️ My Interests", sent_interests_path, class: "dropdown-item" %></li>
+                    <li><%= link_to "💌 Received Interests", received_interests_path, class: "dropdown-item" %></li>
+                    <li><%= link_to "⭐ My Shortlist", shortlisted_path, class: "dropdown-item" %></li>
+                  <% end %>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><%= button_to "🚪 Logout", logout_path, method: :delete, class: "dropdown-item" %></li>
+                </ul>
+              </li>
+            <% else %>
+              <!-- Guest Menu -->
+              <li class="nav-item me-2">
+                <a class="nav-link text-white" href="javascript:void(0);" id="navLoginBtn" style="font-size: 13px;">
+                  <i class="bi bi-box-arrow-in-right"></i> Login
+                </a>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Sign Up", new_signup_path, class: "btn btn-sm btn-danger" %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <style>
+      /* Navbar Icons Styling */
+      .navbar-nav .nav-link i {
+        font-size: 20px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .navbar-nav .nav-link {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.75rem 1rem !important;
+        font-size: 14px;
+        position: relative;
+      }
+
+      .navbar-nav .nav-link:hover {
+        opacity: 0.8;
+      }
+
+      .navbar-nav .badge {
+        font-size: 10px;
+        font-weight: 600;
+        padding: 2px 5px;
+        position: absolute;
+        top: 2px;
+        right: -3px;
+        border-radius: 10px;
+        white-space: nowrap;
+        display: inline-block;
+        line-height: 1;
+      }
+    </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const navLoginBtn = document.getElementById('navLoginBtn');
+        if (navLoginBtn) {
+          navLoginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const loginModal = document.getElementById('loginModal');
+            if (loginModal && typeof bootstrap !== 'undefined') {
+              const modal = new bootstrap.Modal(loginModal);
+              modal.show();
+            } else {
+              // Fallback to login page if modal doesn't exist (on other pages)
+              window.location.href = '<%= login_path %>';
+            }
+          });
+        }
+      });
+    </script>
+
+    <div class="container-fluid">
+      <% if flash[:notice] %>
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+          <i class="bi bi-check-circle"></i> <%= flash[:notice] %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
+
+      <% if flash[:alert] %>
+        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+          <i class="bi bi-exclamation-circle"></i> <%= flash[:alert] %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
+    </div>
+
+    <%= yield %>
+  </body>
+</html>

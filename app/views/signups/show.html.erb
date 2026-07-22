@@ -1,0 +1,445 @@
+<style>
+  .onboarding-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .onboarding-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .onboarding-card {
+    background: white;
+    border-radius: 16px;
+    padding: 50px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  }
+
+  .onboarding-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .onboarding-subtitle {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 30px;
+  }
+
+  .progress-tracker {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+
+  .progress-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #999;
+    font-weight: 600;
+  }
+
+  .progress-step.active {
+    color: #e85d75;
+  }
+
+  .progress-step.completed {
+    color: #4CAF50;
+  }
+
+  .progress-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    background: #e0e0e0;
+    color: #666;
+  }
+
+  .progress-step.active .progress-dot {
+    background: #e85d75;
+    color: white;
+  }
+
+  .progress-step.completed .progress-dot {
+    background: #4CAF50;
+    color: white;
+  }
+
+  .progress-arrow {
+    color: #ddd;
+    font-size: 18px;
+  }
+
+  .progress-bar-container {
+    width: 100%;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #e85d75 0%, #f54a8b 100%);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+  }
+
+  .progress-text {
+    font-size: 12px;
+    color: #999;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  .step-description {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 25px;
+  }
+
+  .form-row.full {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .form-input,
+  .form-select {
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .form-input:focus,
+  .form-select:focus {
+    outline: none;
+    border-color: #e85d75;
+    box-shadow: 0 0 0 3px rgba(232, 93, 117, 0.1);
+  }
+
+  .form-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 35px;
+  }
+
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .btn {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-secondary {
+    background: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+  }
+
+  .btn-secondary:hover {
+    background: #e8e8e8;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #e85d75 0%, #f54a8b 100%);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(232, 93, 117, 0.3);
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .error-message {
+    color: #d32f2f;
+    font-size: 13px;
+    margin-top: 6px;
+  }
+
+  @media (max-width: 768px) {
+    .onboarding-card {
+      padding: 30px 20px;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .progress-tracker {
+      gap: 8px;
+    }
+
+    .progress-step {
+      font-size: 11px;
+    }
+
+    .progress-arrow {
+      display: none;
+    }
+  }
+</style>
+
+<div class="onboarding-container">
+  <!-- Main Content -->
+  <div class="onboarding-content">
+    <div class="onboarding-card">
+      <!-- Title -->
+      <h1 class="onboarding-title">Let's find your perfect companion ✨</h1>
+
+      <!-- Progress Tracker -->
+      <div class="progress-tracker">
+        <div class="progress-step <%= @step >= 1 ? 'completed' : '' %>">
+          <div class="progress-dot">✓</div>
+          <span>Account Setup</span>
+        </div>
+        <div class="progress-arrow">→</div>
+
+        <div class="progress-step <%= @step == 2 ? 'active' : (@step > 2 ? 'completed' : '') %>">
+          <div class="progress-dot"><%= @step > 2 ? '✓' : '2' %></div>
+          <span>🧬 Career & Culture</span>
+        </div>
+        <div class="progress-arrow">→</div>
+
+        <div class="progress-step <%= @step == 3 ? 'active' : (@step > 3 ? 'completed' : '') %>">
+          <div class="progress-dot"><%= @step > 3 ? '✓' : '3' %></div>
+          <span>Lifestyle</span>
+        </div>
+        <div class="progress-arrow">→</div>
+
+        <div class="progress-step <%= @step == 4 ? 'active' : '' %>">
+          <div class="progress-dot">4</div>
+          <span>Identity</span>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" style="width: <%= @progress %>%;"></div>
+      </div>
+      <div class="progress-text">Progress: <%= @progress %>% complete</div>
+
+      <!-- Step Content -->
+      <div style="margin-top: 40px;">
+        <%= form_with(model: @user, local: true, method: :patch, url: signup_step_path(step: @step)) do |form| %>
+          <% if @user.errors.any? %>
+            <div style="background: #ffebee; border: 1px solid #ef5350; border-radius: 8px; padding: 15px; margin-bottom: 20px; color: #c62828; font-size: 13px;">
+              <%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved.
+            </div>
+          <% end %>
+
+          <!-- Step 2: Career & Culture -->
+          <% if @step == 2 %>
+            <h3 class="onboarding-subtitle" style="margin-top: 0; font-size: 16px; font-weight: 600; color: #333;">Step 2: Professional & Cultural Background</h3>
+            <p class="step-description">Tell us a little bit about your upbringing and work life so our matchmaking engine can surface highly compatible matches.</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Religion</label>
+                <%= form.select :religion, 
+                  ['Hindu', 'Muslim', 'Christian', 'Sikh', 'Buddhist', 'Jain', 'Jewish', 'Atheist', 'Agnostic', 'Other'],
+                  { prompt: 'Select religion' },
+                  class: 'form-select' %>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Mother Tongue</label>
+                <%= form.select :mother_tongue,
+                  ['Hindi', 'English', 'Punjabi', 'Gujarati', 'Marathi', 'Tamil', 'Telugu', 'Bengali', 'Kannada', 'Malayalam', 'Other'],
+                  { prompt: 'Select mother tongue' },
+                  class: 'form-select' %>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Highest Education</label>
+                <%= form.select :heighst_education,
+                  ['10th Pass', '12th Pass', 'Bachelor\'s Degree', 'Master\'s Degree', 'Ph.D', 'B.Tech / M.Tech', 'MBA', 'Medical', 'Law', 'Other'],
+                  { prompt: 'Select education' },
+                  class: 'form-select' %>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Current Profession</label>
+                <%= form.select :job,
+                  ['Student', 'Software / IT Professional', 'Engineer', 'Doctor', 'Lawyer', 'Business Owner', 'Accountant', 'Teacher', 'Consultant', 'Homemaker', 'Other'],
+                  { prompt: 'Select profession' },
+                  class: 'form-select' %>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Company / Employer Name</label>
+                <%= form.text_field :organization_name, placeholder: 'e.g. Google, Amazon, Self-Employed', class: 'form-input' %>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Annual Income Bracket</label>
+                <%= form.select :annual_income,
+                  ['₹0 - ₹10 Lakh', '₹10 - ₹15 Lakh', '₹15 - ₹25 Lakh', '₹25 - ₹50 Lakh', '₹50+ Lakh'],
+                  { prompt: 'Select income' },
+                  class: 'form-select' %>
+              </div>
+            </div>
+
+            <div class="form-row full">
+              <div class="form-group">
+                <label class="form-label">Current Location (City)</label>
+                <%= form.text_field :address, placeholder: 'e.g. Mumbai, Maharashtra, India', class: 'form-input' %>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Step 3: Lifestyle -->
+          <% if @step == 3 %>
+            <h3 class="onboarding-subtitle" style="margin-top: 0; font-size: 16px; font-weight: 600; color: #333;">Step 3: Lifestyle & Habits</h3>
+            <p class="step-description">Let your match know about your lifestyle choices and interests to find someone truly compatible with you.</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Diet Preference</label>
+                <%= form.select :food_type,
+                  ['Vegetarian', 'Non-Vegetarian', 'Vegan', 'Eggetarian'],
+                  { prompt: 'Select diet preference' },
+                  class: 'form-select' %>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Smoking Frequency</label>
+                <%= form.select :smoking_frequency,
+                  ['Never', 'Occasionally', 'Regularly'],
+                  { prompt: 'Select smoking frequency' },
+                  class: 'form-select' %>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Alcohol Frequency</label>
+                <%= form.select :alcohol_frequency,
+                  ['Never', 'Occasionally', 'Regularly'],
+                  { prompt: 'Select alcohol frequency' },
+                  class: 'form-select' %>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Hobbies & Interests</label>
+                <%= form.text_field :hobbies, placeholder: 'e.g. Traveling, Reading, Cooking, Sports', class: 'form-input' %>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Step 4: Identity -->
+          <% if @step == 4 %>
+            <h3 class="onboarding-subtitle" style="margin-top: 0; font-size: 16px; font-weight: 600; color: #333;">Step 4: Identity & Astrology</h3>
+            <p class="step-description">Complete your profile with your unique identity details and astro information.</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Height</label>
+                <%= form.select :height,
+                  ['4\'6"', '4\'7"', '4\'8"', '4\'9"', '4\'10"', '4\'11"', '5\'0"', '5\'1"', '5\'2"', '5\'3"', '5\'4"', '5\'5"', '5\'6"', '5\'7"', '5\'8"', '5\'9"', '5\'10"', '6\'0"+'],
+                  { prompt: 'Select height' },
+                  class: 'form-select' %>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Caste</label>
+                <%= form.text_field :caste, placeholder: 'e.g. Brahmin, Kshatriya, Vaishya, Shudra', class: 'form-input' %>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Rashi (Moon Sign)</label>
+                <%= form.select :rashi,
+                  ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'],
+                  { prompt: 'Select rashi' },
+                  class: 'form-select' %>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Manglik Status</label>
+                <%= form.select :manglik,
+                  ['Yes', 'No', 'Unknown'],
+                  { prompt: 'Select manglik status' },
+                  class: 'form-select' %>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Form Buttons -->
+          <div class="form-buttons">
+            <% if @step > 1 %>
+              <%= link_to '👈 Back', signup_step_path(step: @step - 1), class: 'btn btn-secondary' %>
+            <% end %>
+            <% if @step < 4 %>
+              <%= form.submit 'Save & Continue ➜', class: 'btn btn-primary' %>
+            <% else %>
+              <%= form.submit 'Complete Profile & Start Matching', class: 'btn btn-primary' %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

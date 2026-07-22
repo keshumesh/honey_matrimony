@@ -1,0 +1,496 @@
+<style>
+  .browse-container {
+    display: flex;
+    gap: 20px;
+    min-height: calc(100vh - 200px);
+    padding: 30px 20px;
+  }
+
+  .filter-sidebar {
+    width: 250px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 100px;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+  }
+
+  /* Custom Scrollbar for Filter Sidebar */
+  .filter-sidebar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .filter-sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  .filter-sidebar::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+  }
+
+  .filter-sidebar::-webkit-scrollbar-thumb:hover {
+    background: #999;
+  }
+
+  .filter-section {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .filter-section:last-child {
+    border-bottom: none;
+  }
+
+  .filter-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .filter-close-btn {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .range-slider {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .range-input {
+    width: 45px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  .filter-checkbox {
+    margin-right: 8px;
+  }
+
+  .filter-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+
+  .filter-option label {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .filter-btn {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    font-size: 12px;
+  }
+
+  .profiles-panel {
+    flex: 1;
+  }
+
+  .panel-header {
+    margin-bottom: 20px;
+  }
+
+  .panel-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .match-count {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+  }
+
+  .profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+  }
+
+  .profile-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .profile-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  }
+
+  .profile-photo {
+    position: relative;
+    height: 220px;
+    background: #e0e0e0;
+    overflow: hidden;
+  }
+
+  .profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-blurred {
+    filter: blur(8px);
+  }
+
+  .photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    padding: 12px;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .verification-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .status-indicator {
+    font-size: 12px;
+  }
+
+  .profile-info {
+    padding: 12px;
+  }
+
+  .profile-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 6px 0;
+  }
+
+  .profile-location {
+    font-size: 12px;
+    color: #666;
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .profile-profession {
+    font-size: 12px;
+    color: #666;
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .compatibility {
+    font-size: 13px;
+    font-weight: 600;
+    color: #4CAF50;
+    margin: 8px 0;
+  }
+
+  .profile-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .action-btn {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .connect-btn {
+    background: #e85d75;
+    color: white;
+  }
+
+  .connect-btn:hover {
+    background: #d64860;
+  }
+
+  .connect-btn:disabled {
+    background: #90ee90;
+    color: #333;
+    cursor: not-allowed;
+    opacity: 0.8 !important;
+  }
+
+  .skip-btn {
+    background: #f0f0f0;
+    color: #333;
+  }
+
+  .skip-btn:hover {
+    background: #e0e0e0;
+  }
+
+  .skip-btn:disabled {
+    background: #c8e6c9;
+    color: #333;
+    cursor: not-allowed;
+    opacity: 0.8 !important;
+  }
+
+  .request-photo-btn {
+    background: #2196F3;
+    color: white;
+    width: 100%;
+  }
+
+  .request-photo-btn:hover {
+    background: #1976D2;
+  }
+
+  .no-profiles {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+  }
+
+  .no-profiles p {
+    margin: 10px 0;
+  }
+
+  @media (max-width: 768px) {
+    .browse-container {
+      flex-direction: column;
+    }
+
+    .filter-sidebar {
+      width: 100%;
+      position: static;
+    }
+
+    .profiles-grid {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+  }
+</style>
+
+<!-- Main Browse Container -->
+<div class="browse-container" style="max-width: 1400px; margin: 0 auto;">
+  <!-- Filter Sidebar -->
+  <div class="filter-sidebar">
+    <%= form_with url: browse_users_path, method: :get, local: true do |f| %>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h5 style="margin: 0; font-size: 14px; font-weight: 600;">FILTERS</h5>
+        <%= link_to "Reset", browse_users_path, class: "btn btn-sm btn-outline-secondary", style: "font-size: 12px;" %>
+      </div>
+
+      <!-- Name/Search Filter -->
+      <div class="filter-section">
+        <div class="filter-title">Search Name</div>
+        <%= f.text_field :search_name, placeholder: "First or Last name", value: params[:search_name], style: "width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 12px;" %>
+      </div>
+
+      <!-- Age Range Filter -->
+      <div class="filter-section">
+        <div class="filter-title">Age Range</div>
+        <div class="range-slider">
+          <%= f.number_field :min_age, placeholder: "Min", value: params[:min_age] || 18, min: 18, max: 100, class: "range-input" %>
+          <span>to</span>
+          <%= f.number_field :max_age, placeholder: "Max", value: params[:max_age] || 65, min: 18, max: 100, class: "range-input" %>
+        </div>
+      </div>
+
+      <!-- Religion Filter -->
+      <div class="filter-section">
+        <div class="filter-title">Religion / Community</div>
+        <div class="filter-option">
+          <%= f.check_box :religion_hindu, { class: "filter-checkbox", checked: params[:religion_hindu] == "1" } %>
+          <label>Hindu</label>
+        </div>
+        <div class="filter-option">
+          <%= f.check_box :religion_muslim, { class: "filter-checkbox", checked: params[:religion_muslim] == "1" } %>
+          <label>Muslim</label>
+        </div>
+        <div class="filter-option">
+          <%= f.check_box :religion_sikh, { class: "filter-checkbox", checked: params[:religion_sikh] == "1" } %>
+          <label>Sikh</label>
+        </div>
+        <div class="filter-option">
+          <%= f.check_box :religion_christian, { class: "filter-checkbox", checked: params[:religion_christian] == "1" } %>
+          <label>Christian</label>
+        </div>
+      </div>
+
+      <!-- Profession Filter -->
+      <div class="filter-section">
+        <div class="filter-title">Profession</div>
+        <div class="filter-option">
+          <%= f.check_box :profession_it, { class: "filter-checkbox", checked: params[:profession_it] == "1" } %>
+          <label>IT/Tech</label>
+        </div>
+        <div class="filter-option">
+          <%= f.check_box :profession_medical, { class: "filter-checkbox", checked: params[:profession_medical] == "1" } %>
+          <label>Medical</label>
+        </div>
+        <div class="filter-option">
+          <%= f.check_box :profession_business, { class: "filter-checkbox", checked: params[:profession_business] == "1" } %>
+          <label>Business</label>
+        </div>
+        <div class="filter-option">
+          <%= f.check_box :profession_other, { class: "filter-checkbox", checked: params[:profession_other] == "1" } %>
+          <label>Other</label>
+        </div>
+      </div>
+
+      <!-- Location Filter -->
+      <div class="filter-section">
+        <div class="filter-title">Location</div>
+        <%= f.text_field :location, placeholder: "Type city...", value: params[:location], style: "width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 12px;" %>
+      </div>
+
+      <!-- Search Button -->
+      <div style="margin-top: 20px;">
+        <%= f.submit "🔍 Search", class: "btn btn-primary w-100", style: "margin-bottom: 10px;" %>
+        <%= link_to "🔄 Reset Filters", browse_users_path, class: "btn btn-outline-secondary w-100" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Profiles Panel -->
+  <div class="profiles-panel">
+    <div class="panel-header">
+      <h2 class="panel-title">Find Your Perfect Match</h2>
+      <div class="match-count">Showing <%= @users.count %> Active Matches</div>
+      
+      <!-- Debug Info (remove in production) -->
+      <% if params[:search_name].present? || params[:location].present? || params[:religion_hindu].present? || params[:religion_muslim].present? || params[:religion_sikh].present? || params[:religion_christian].present? || params[:profession_it].present? || params[:profession_medical].present? || params[:profession_business].present? || params[:profession_other].present? %>
+        <div style="background: #f0f0f0; padding: 10px; border-radius: 6px; margin-top: 10px; font-size: 12px;">
+          <strong>Active Filters:</strong>
+          <% if params[:search_name].present? %><br/>🔤 Name: <%= params[:search_name] %><% end %>
+          <% if params[:min_age].present? || params[:max_age].present? %><br/>📅 Age: <%= params[:min_age] || 18 %> - <%= params[:max_age] || 65 %><% end %>
+          <% if params[:location].present? %><br/>📍 Location: <%= params[:location] %><% end %>
+          <% religions_active = [params[:religion_hindu], params[:religion_muslim], params[:religion_sikh], params[:religion_christian]].compact.any? %>
+          <% if religions_active %><br/>🙏 Religions: <%= [("Hindu" if params[:religion_hindu] == "1"), ("Muslim" if params[:religion_muslim] == "1"), ("Sikh" if params[:religion_sikh] == "1"), ("Christian" if params[:religion_christian] == "1")].compact.join(", ") %><% end %>
+          <% professions_active = [params[:profession_it], params[:profession_medical], params[:profession_business], params[:profession_other]].compact.any? %>
+          <% if professions_active %><br/>💼 Professions: <%= [("IT/Tech" if params[:profession_it] == "1"), ("Medical" if params[:profession_medical] == "1"), ("Business" if params[:profession_business] == "1"), ("Other" if params[:profession_other] == "1")].compact.join(", ") %><% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @users.any? %>
+      <div class="profiles-grid">
+        <% @users.each_with_index do |user, index| %>
+          <div class="profile-card">
+            <!-- Photo Section -->
+            <div class="profile-photo">
+              <% if user.avatar.present? %>
+                <img src="<%= user.avatar.url(:medium) %>" alt="<%= user.first_name %>">
+              <% else %>
+                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #e0e0e0;">
+                  <i class="bi bi-person-circle" style="font-size: 3rem; color: #999;"></i>
+                </div>
+              <% end %>
+
+              <!-- Verification Badge -->
+              <div class="verification-badge">
+                <i class="bi bi-shield-check" style="font-size: 12px;"></i> ID VERIFIED
+              </div>
+
+              <!-- Status -->
+              <div class="photo-overlay">
+                <span class="status-indicator">
+                  <% if user.last_seen_recently? %>
+                    🟢 Active Now
+                  <% else %>
+                    🕒 Active 1h ago
+                  <% end %>
+                </span>
+              </div>
+            </div>
+
+            <!-- Info Section -->
+            <div class="profile-info">
+              <p class="profile-name"><%= user.first_name %> <%= user.last_name %><% if user.dob %>, <%= ((Date.today - user.dob.to_date) / 365.25).round %><% end %></p>
+              
+              <div class="profile-location">
+                📍 <% if user.address %><%= user.address.split(',').first %><% else %>India<% end %>
+              </div>
+
+              <div class="profile-profession">
+                💻 <% if user.job.present? %><%= user.job %><% elsif user.highest_educational_details.present? %><%= user.highest_educational_details %><% else %>Professional<% end %>
+              </div>
+
+              <div class="compatibility">
+                📊 <%= user.match_score %>% Compatibility
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="profile-actions">
+                <% if index % 3 == 2 %>
+                  <button class="action-btn request-photo-btn">Request Photo</button>
+                <% else %>
+                  <% interaction = current_user.sent_interactions.find_by(to_user: user) %>
+                  <% if interaction && interaction.interaction_type == 'interested' %>
+                    <button class="action-btn connect-btn" disabled style="opacity: 0.6; cursor: not-allowed;">✓ Connected</button>
+                  <% elsif interaction && interaction.interaction_type == 'shortlist' %>
+                    <button class="action-btn connect-btn" disabled style="opacity: 0.6; cursor: not-allowed;">⭐ Shortlisted</button>
+                  <% else %>
+                    <%= button_to "Connect", user_express_interest_path(user), method: :post, class: "action-btn connect-btn" %>
+                  <% end %>
+                  <% if interaction && interaction.interaction_type == 'rejected' %>
+                    <button class="action-btn skip-btn" disabled style="opacity: 0.8; cursor: not-allowed; background: #c8e6c9; color: #333;">✓ Skipped</button>
+                  <% else %>
+                    <%= button_to "Skip", user_reject_path(user), method: :post, class: "action-btn skip-btn" %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="no-profiles">
+        <p style="font-size: 16px; font-weight: 600;">No profiles found</p>
+        <p>Try adjusting your filters to see more matches</p>
+      </div>
+    <% end %>
+  </div>
+</div>

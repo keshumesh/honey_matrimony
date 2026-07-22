@@ -1,0 +1,796 @@
+<style>
+  .navbar-custom {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 12px 24px;
+  }
+  
+  .logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #e85d75;
+  }
+  
+  .navbar-nav-items {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .nav-item-badge {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+  }
+  
+  .nav-item-badge:hover {
+    color: #e85d75;
+  }
+  
+  .profile-menu-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .profile-menu-btn:hover {
+    color: #e85d75;
+  }
+  
+  .welcome-section {
+    padding: 30px;
+    background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+    border-radius: 12px;
+    margin-bottom: 30px;
+  }
+  
+  .welcome-text {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  
+  .stat-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 15px 0;
+  }
+  
+  .progress-bar-custom {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50 0%, #81C784 100%);
+    border-radius: 10px;
+  }
+  
+  .stat-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .stat-item strong {
+    margin-right: 5px;
+  }
+  
+  .ai-picks-section {
+    margin-bottom: 30px;
+  }
+  
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .profiles-carousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+  }
+  
+  .profile-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+  
+  .profile-image {
+    height: 200px;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .profile-locked {
+    position: relative;
+  }
+  
+  .profile-locked::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 1;
+  }
+  
+  .profile-locked::after {
+    content: '🔒 Locked until\Arequest accepted';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    text-align: center;
+    z-index: 2;
+    white-space: pre;
+    line-height: 1.3;
+  }
+  
+  .profile-info {
+    padding: 12px;
+  }
+  
+  .profile-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 6px 0;
+  }
+  
+  .profile-status {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+    margin: 4px 0;
+  }
+  
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  
+  .status-dot.online {
+    background: #4CAF50;
+  }
+  
+  .status-dot.active {
+    background: #FFC107;
+  }
+  
+  .profile-match {
+    font-size: 12px;
+    color: #4CAF50;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+  
+  .profile-btn {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    background: #e85d75;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  .profile-btn:hover {
+    background: #d64860;
+    color: white;
+  }
+  
+  .conversations-section {
+    margin-top: 30px;
+  }
+  
+  .conversation-item {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .conversation-item:hover {
+    background: #f8f8f8;
+  }
+  
+  .conversation-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .conversation-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .conversation-content {
+    flex: 1;
+  }
+  
+  .conversation-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  
+  .conversation-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .conversation-message {
+    font-size: 13px;
+    color: #666;
+  }
+</style>
+
+<!-- Main Dashboard Content -->
+<div class="container" style="max-width: 1200px; padding: 30px 20px;">
+  <!-- Welcome Section -->
+  <div class="welcome-section">
+    <p class="welcome-text">👋 Welcome back, <%= @user.first_name %>!</p>
+  </div>
+
+  <!-- Profile Strength & Quick Stats -->
+  <div class="stats-grid">
+    <!-- Profile Strength Card -->
+    <div class="stat-card">
+      <h4>🎉 Profile Strength</h4>
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span style="font-size: 24px; font-weight: 700; color: #4CAF50;"><%= @profile_strength %>%</span>
+      </div>
+      <div class="progress-bar-custom">
+        <div class="progress-fill" style="width: <%= @profile_strength %>%;"></div>
+      </div>
+      <p style="font-size: 12px; color: #666; margin-top: 10px;">
+        <% if @profile_strength < 100 %>
+          > <%= @strength_tips.first if @strength_tips.present? %>
+        <% else %>
+          ✅ Your profile is complete!
+        <% end %>
+      </p>
+    </div>
+
+    <!-- Quick Stats Card -->
+    <div class="stat-card">
+      <h4>⚡ Quick Stats</h4>
+      <div class="stat-item">
+        <strong><%= @profile_views || 0 %></strong> People viewed you today
+      </div>
+      <div class="stat-item">
+        <strong><%= @new_connection_requests || 0 %></strong> New connection requests
+      </div>
+      <div class="stat-item">
+        <strong><%= @shortlisted || 0 %></strong> You shortlisted
+      </div>
+      <div class="stat-item">
+        <strong><%= @sent_interests || 0 %></strong> Interests sent
+      </div>
+    </div>
+  </div>
+
+  <!-- Daily Top AI Picks -->
+  <div class="ai-picks-section">
+    <h3 class="section-title">🤖 Daily Top AI Picks (Refreshes in <span id="refresh-timer">12h</span>)</h3>
+    <div class="profiles-carousel">
+      <% if @daily_picks.any? %>
+        <% @daily_picks.each_with_index do |profile, index| %>
+          <div class="profile-card">
+            <div class="profile-image <%= index == 0 ? 'profile-locked' : '' %>">
+              <% if profile.avatar.present? %>
+                <img src="<%= profile.avatar.url(:medium) %>" alt="<%= profile.first_name %>">
+              <% else %>
+                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #e0e0e0;">
+                  <i class="bi bi-person-circle" style="font-size: 3rem; color: #999;"></i>
+                </div>
+              <% end %>
+            </div>
+            <div class="profile-info">
+              <p class="profile-name"><%= profile.first_name %> <%= profile.last_name %></p>
+              <div class="profile-status">
+                <span class="status-dot <%= profile.last_seen_recently? ? 'online' : 'active' %>"></span>
+                <%= profile.last_seen_recently? ? '🟢 Active Now' : '🕒 Active today' %>
+              </div>
+              <div class="profile-match">📊 <%= profile.match_score || 85 %>% Match</div>
+              <%= link_to 'View Profile', browse_profile_user_path(profile), class: 'profile-btn' %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p style="text-align: center; color: #999; grid-column: 1 / -1; padding: 40px 20px;">No profiles available at the moment</p>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Recent Conversations -->
+  <div class="conversations-section">
+    <h3 class="section-title">💬 Recent Conversations</h3>
+    <% if @recent_conversations.any? %>
+      <% @recent_conversations.each do |conversation| %>
+        <div class="conversation-item">
+          <div class="conversation-avatar">
+            <% if conversation[:avatar].present? %>
+              <img src="<%= conversation[:avatar] %>" alt="">
+            <% else %>
+              <i class="bi bi-person-circle" style="font-size: 20px; color: #999;"></i>
+            <% end %>
+          </div>
+          <div class="conversation-content">
+            <div class="conversation-header">
+              <span class="conversation-name"><%= conversation[:name] %></span>
+              <span style="color: #999; font-size: 12px;">• <%= conversation[:status] %></span>
+            </div>
+            <p class="conversation-message"><%= conversation[:message] %></p>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div style="text-align: center; padding: 40px; background: #f8f8f8; border-radius: 8px;">
+        <p style="color: #999;">No conversations yet</p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  // Refresh timer countdown
+  let hours = 12;
+  let minutes = 0;
+  
+  setInterval(() => {
+    if (minutes === 0 && hours > 0) {
+      hours--;
+      minutes = 59;
+    } else if (minutes > 0) {
+      minutes--;
+    } else if (hours === 0 && minutes === 0) {
+      hours = 12;
+    }
+    
+    document.getElementById('refresh-timer').textContent = hours + 'h ' + minutes + 'm';
+  }, 60000); // Update every minute
+</script>
+
+<!-- Old Tab Content Structure (Kept for reference, hidden) -->
+<div class="container-fluid mt-4" style="min-height: 100vh; background-color: #f8f9fa; display: none;">
+  <div class="row h-100">
+    <!-- Sidebar Navigation -->
+    <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+      <div class="card shadow-sm border-0 sticky-top" style="top: 80px;">
+        <div class="card-header bg-gradient text-white">
+          <h5 class="mb-0">
+            <i class="bi bi-heart-fill"></i> <%= t('matrimony_dashboard') %>
+          </h5>
+        </div>
+        <div class="list-group list-group-flush">
+          <button class="list-group-item list-group-item-action active" id="profileTab" data-bs-toggle="list" href="#profileContent" role="tab">
+            <i class="bi bi-person-circle me-2"></i> <%= t('profile_overview') %>
+          </button>
+          <button class="list-group-item list-group-item-action" id="matchesTab" data-bs-toggle="list" href="#matchesContent" role="tab">
+            <i class="bi bi-heart me-2"></i> <%= t('suggested_matches') %>
+            <% if @suggested_matches.any? %>
+              <span class="badge bg-danger float-end"><%= @suggested_matches.count %></span>
+            <% end %>
+          </button>
+          <button class="list-group-item list-group-item-action" id="favoritesTab" data-bs-toggle="list" href="#favoritesContent" role="tab">
+            <i class="bi bi-star-fill me-2"></i> <%= t('likes_favorites') %>
+            <% if @shortlisted.present? && @shortlisted > 0 %>
+              <span class="badge bg-warning float-end"><%= @shortlisted %></span>
+            <% end %>
+          </button>
+          <button class="list-group-item list-group-item-action" id="activityTab" data-bs-toggle="list" href="#activityContent" role="tab">
+            <i class="bi bi-bell me-2"></i> <%= t('activity_feed') %>
+            <% if @received_interactions.present? && @received_interactions > 0 %>
+              <span class="badge bg-info float-end"><%= @received_interactions %></span>
+            <% end %>
+          </button>
+          <button class="list-group-item list-group-item-action" id="notesTab" data-bs-toggle="list" href="#notesContent" role="tab">
+            <i class="bi bi-sticky me-2"></i> <%= t('notes_tags') %>
+          </button>
+          <button class="list-group-item list-group-item-action" id="settingsTab" data-bs-toggle="list" href="#settingsContent" role="tab">
+            <i class="bi bi-gear me-2"></i> <%= t('settings') %>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="col-lg-9 col-md-8">
+      <div class="tab-content">
+        <!-- Profile Overview Tab -->
+        <div class="tab-pane fade show active" id="profileContent" role="tabpanel">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-md-3 text-center mb-3 mb-md-0">
+                  <% if @user.avatar.present? %>
+                    <img src="<%= @user.avatar.url(:medium) %>" alt="Avatar" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #007bff;">
+                  <% else %>
+                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto" style="width: 150px; height: 150px; border: 4px solid #dee2e6;">
+                      <i class="bi bi-person" style="font-size: 64px; color: #999;"></i>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="col-md-6">
+                  <h3><%= @user.first_name %> <%= @user.last_name %></h3>
+                  <p class="text-muted mb-2">
+                    <% if @user.gender %>
+                      <i class="bi bi-person-bounding-box"></i> <%= @user.gender %>
+                    <% end %>
+                    <% if @user.dob %>
+                      • <%= ((Date.today - @user.dob.to_date) / 365.25).round %> <%= t('years_old') %>
+                    <% end %>
+                  </p>
+                  <p class="text-muted mb-2">
+                    <% if @user.religion %>
+                      <i class="bi bi-info-circle"></i> <%= @user.religion %>
+                    <% end %>
+                    <% if @user.caste %>
+                      • <%= @user.caste %>
+                    <% end %>
+                  </p>
+                  <p class="small text-muted">
+                    <i class="bi bi-calendar-event"></i> <%= t('member_since') %>: <%= @user.created_at.strftime("%B %d, %Y") %>
+                  </p>
+                </div>
+                <div class="col-md-3 text-end">
+                  <div class="d-grid gap-2">
+                    <%= link_to t('edit_profile'), edit_user_path(@user), class: "btn btn-primary btn-sm" %>
+                    <%= link_to t('view_profile'), user_path(@user), class: "btn btn-outline-primary btn-sm" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="row mb-4">
+            <div class="col-md-3">
+              <div class="card shadow-sm border-0 text-center cursor-pointer" onclick="document.getElementById('matchesTab').click();" style="cursor: pointer; transition: all 0.3s ease;">
+                <div class="card-body">
+                  <h4 class="text-success"><%= @suggested_matches.count %></h4>
+                  <p class="text-muted mb-0"><%= t('suggested_matches') %></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card shadow-sm border-0 text-center cursor-pointer" onclick="document.getElementById('matchesTab').click();" style="cursor: pointer; transition: all 0.3s ease;">
+                <div class="card-body">
+                  <h4 class="text-danger"><%= @sent_interests %></h4>
+                  <p class="text-muted mb-0"><%= t('interests_sent') %></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card shadow-sm border-0 text-center cursor-pointer" onclick="document.getElementById('activityTab').click();" style="cursor: pointer; transition: all 0.3s ease;">
+                <div class="card-body">
+                  <h4 class="text-info"><%= @received_interests %></h4>
+                  <p class="text-muted mb-0"><%= t('interests_received') %></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card shadow-sm border-0 text-center cursor-pointer" onclick="document.getElementById('favoritesTab').click();" style="cursor: pointer; transition: all 0.3s ease;">
+                <div class="card-body">
+                  <h4 class="text-warning"><%= @shortlisted %></h4>
+                  <p class="text-muted mb-0"><%= t('profiles_shortlisted') %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Suggested Matches Tab -->
+        <div class="tab-pane fade" id="matchesContent" role="tabpanel">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-light">
+              <h5 class="mb-0"><i class="bi bi-heart"></i> <%= t('suggested_profiles') %></h5>
+            </div>
+            <div class="card-body">
+              <% if @suggested_matches.any? %>
+                <div class="row">
+                  <% @suggested_matches.each do |profile| %>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                      <div class="card h-100 shadow-sm border-0 hover-shadow">
+                        <% if profile.avatar.present? %>
+                          <img src="<%= profile.avatar.url(:medium) %>" class="card-img-top" alt="Profile" style="height: 200px; object-fit: cover;">
+                        <% else %>
+                          <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="bi bi-person-circle" style="font-size: 3rem; color: #ccc;"></i>
+                          </div>
+                        <% end %>
+                        <div class="card-body">
+                          <h6 class="card-title"><%= profile.first_name %> <%= profile.last_name %></h6>
+                          <p class="small text-muted mb-2">
+                            <% if profile.dob %>
+                              <%= ((Date.today - profile.dob.to_date) / 365.25).round %> <%= t('years') %> •
+                            <% end %>
+                            <%= profile.religion %>
+                          </p>
+                          <div class="d-flex gap-2">
+                            <%= button_to user_express_interest_path(profile), method: :post, class: "btn btn-sm btn-danger flex-grow-1" do %>
+                              <i class="bi bi-heart-fill"></i> <%= t('express_interest') %>
+                            <% end %>
+                            <%= link_to browse_profile_user_path(profile), class: "btn btn-sm btn-outline-primary flex-grow-1" do %>
+                              <i class="bi bi-eye"></i> <%= t('view') %>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="alert alert-info"><%= t('no_matches_available') %></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Likes & Favorites Tab -->
+        <div class="tab-pane fade" id="favoritesContent" role="tabpanel">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-light">
+              <h5 class="mb-0"><i class="bi bi-star-fill"></i> <%= t('my_shortlist') %></h5>
+            </div>
+            <div class="card-body">
+              <% if @shortlist_profiles.any? %>
+                <div class="row">
+                  <% @shortlist_profiles.each do |interaction| %>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                      <div class="card h-100 shadow-sm border-0 border-warning border-start border-5">
+                        <% if interaction.to_user.avatar.present? %>
+                          <img src="<%= interaction.to_user.avatar.url(:medium) %>" class="card-img-top" alt="Profile" style="height: 200px; object-fit: cover;">
+                        <% else %>
+                          <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="bi bi-person-circle" style="font-size: 3rem; color: #ccc;"></i>
+                          </div>
+                        <% end %>
+                        <div class="card-body">
+                          <h6 class="card-title"><%= interaction.to_user.first_name %> <%= interaction.to_user.last_name %></h6>
+                          <p class="small text-muted mb-2">
+                            <% if interaction.to_user.dob %>
+                              <%= ((Date.today - interaction.to_user.dob.to_date) / 365.25).round %> <%= t('years') %> •
+                            <% end %>
+                            <%= interaction.to_user.religion %>
+                          </p>
+                          <div class="d-flex gap-2">
+                            <%= link_to browse_profile_user_path(interaction.to_user), class: "btn btn-sm btn-primary flex-grow-1" do %>
+                              <i class="bi bi-eye"></i> <%= t('view') %>
+                            <% end %>
+                            <%= link_to browse_profile_user_path(interaction.to_user), method: :delete, data: { confirm: t('are_you_sure') }, class: "btn btn-sm btn-outline-danger flex-grow-1" do %>
+                              <i class="bi bi-trash"></i>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="text-center">
+                  <%= link_to t('view_all_shortlist'), shortlisted_path, class: "btn btn-outline-primary" %>
+                </div>
+              <% else %>
+                <div class="alert alert-info"><%= t('no_shortlist_yet') %></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Feed Tab -->
+        <div class="tab-pane fade" id="activityContent" role="tabpanel">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-light">
+              <h5 class="mb-0"><i class="bi bi-bell"></i> <%= t('recent_activity') %></h5>
+            </div>
+            <div class="card-body">
+              <% if @recent_interactions.any? %>
+                <div class="timeline">
+                  <% @recent_interactions.each do |interaction| %>
+                    <div class="timeline-item mb-4 pb-4 border-bottom">
+                      <div class="row">
+                        <div class="col-md-2 text-center">
+                          <% if interaction.from_user.avatar.present? %>
+                            <img src="<%= interaction.from_user.avatar.url(:thumb) %>" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
+                          <% else %>
+                            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                              <i class="bi bi-person-circle" style="font-size: 2rem;"></i>
+                            </div>
+                          <% end %>
+                        </div>
+                        <div class="col-md-7">
+                          <h6 class="mb-1">
+                            <strong><%= interaction.from_user.first_name %> <%= interaction.from_user.last_name %></strong>
+                            <%= t('expressed_interest') %>
+                          </h6>
+                          <p class="small text-muted mb-0">
+                            <i class="bi bi-calendar-event"></i> <%= time_ago_in_words(interaction.created_at) %> <%= t('ago') %>
+                          </p>
+                        </div>
+                        <div class="col-md-3 text-end">
+                          <% if interaction.status == 'pending' %>
+                            <span class="badge bg-warning"><%= t('pending') %></span>
+                          <% elsif interaction.status == 'accepted' %>
+                            <span class="badge bg-success"><%= t('accepted') %></span>
+                          <% else %>
+                            <span class="badge bg-danger"><%= t('declined') %></span>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="text-center">
+                  <%= link_to t('view_all_interests'), received_interests_path, class: "btn btn-outline-primary" %>
+                </div>
+              <% else %>
+                <div class="alert alert-info"><%= t('no_activity_yet') %></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes & Tags Tab -->
+        <div class="tab-pane fade" id="notesContent" role="tabpanel">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-light">
+              <h5 class="mb-0"><i class="bi bi-sticky"></i> <%= t('profile_notes') %></h5>
+            </div>
+            <div class="card-body">
+              <p class="text-muted">Add personal notes and tags to profiles you're interested in. This helps you remember details and organize your matches.</p>
+              <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> Visit profiles and click "Add Notes" to add personal observations about matches.
+              </div>
+              <%= link_to t('browse_profiles'), users_path, class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div class="tab-pane fade" id="settingsContent" role="tabpanel">
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-light">
+              <h5 class="mb-0"><i class="bi bi-gear"></i> <%= t('account_settings') %></h5>
+            </div>
+            <div class="card-body">
+              <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="mb-1"><i class="bi bi-shield-lock"></i> <%= t('privacy_settings') %></h6>
+                      <p class="small text-muted mb-0">Control who can see your profile and contact you</p>
+                    </div>
+                    <div>
+                      <%= link_to t('manage'), edit_user_path(@user), class: "btn btn-sm btn-outline-primary" %>
+                    </div>
+                  </div>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="mb-1"><i class="bi bi-pencil-square"></i> <%= t('edit_profile') %></h6>
+                      <p class="small text-muted mb-0">Update your profile information</p>
+                    </div>
+                    <div>
+                      <%= link_to t('edit'), edit_user_path(@user), class: "btn btn-sm btn-outline-primary" %>
+                    </div>
+                  </div>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <h6 class="mb-1"><i class="bi bi-key"></i> <%= t('change_password') %></h6>
+                      <p class="small text-muted mb-0">Update your password for account security</p>
+                    </div>
+                    <div>
+                      <%= link_to t('change'), edit_user_path(@user), class: "btn btn-sm btn-outline-primary" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .bg-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  .hover-shadow:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-3px);
+    transition: all 0.3s ease;
+  }
+  .sticky-top {
+    z-index: 990;
+  }
+  .timeline-item {
+    position: relative;
+  }
+</style>

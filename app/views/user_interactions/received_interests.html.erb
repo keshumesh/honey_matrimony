@@ -1,0 +1,77 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-gradient text-white">
+          <h4 class="mb-0">
+            <i class="bi bi-inbox"></i> <%= t('received_interests') %>
+          </h4>
+        </div>
+        <div class="card-body">
+          <% if @interactions.any? %>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="table-light">
+                  <tr>
+                    <th><i class="bi bi-person-circle"></i> <%= t('profile') %></th>
+                    <th><%= t('gender') %></th>
+                    <th><%= t('religion') %></th>
+                    <th><%= t('status') %></th>
+                    <th><%= t('date') %></th>
+                    <th><%= t('action') %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @interactions.each do |interaction| %>
+                    <tr>
+                      <td>
+                        <strong><%= interaction.from_user.first_name %> <%= interaction.from_user.last_name %></strong>
+                      </td>
+                      <td><%= interaction.from_user.gender %></td>
+                      <td><%= interaction.from_user.religion %></td>
+                      <td>
+                        <% if interaction.status == 'pending' %>
+                          <span class="badge bg-warning"><%= t('pending') %></span>
+                        <% elsif interaction.status == 'accepted' %>
+                          <span class="badge bg-success"><%= t('accepted') %></span>
+                        <% else %>
+                          <span class="badge bg-danger"><%= t('declined') %></span>
+                        <% end %>
+                      </td>
+                      <td><small class="text-muted"><%= l(interaction.created_at, format: :short) %></small></td>
+                      <td>
+                        <% if interaction.status == 'pending' %>
+                          <%= button_to t('accept_interest'), accept_interest_user_interaction_path(interaction), method: :post, class: "btn btn-sm btn-success" %>
+                          <%= button_to t('decline_interest'), decline_interest_user_interaction_path(interaction), method: :post, class: "btn btn-sm btn-danger" %>
+                        <% end %>
+                        <%= link_to t('view'), browse_profile_user_path(interaction.from_user), class: "btn btn-sm btn-info" %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% else %>
+            <div class="alert alert-info" role="alert">
+              <i class="bi bi-info-circle"></i> <%= t('no_interests_yet') %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <%= link_to t('my_interests'), sent_interests_path, class: "btn btn-primary" %>
+        <%= link_to t('back_to_home'), user_dashboard_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .bg-gradient {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  }
+  .table-hover tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+</style>

@@ -1,0 +1,549 @@
+<style>
+  .profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #e85d75;
+    text-decoration: none;
+    margin-bottom: 25px;
+    cursor: pointer;
+  }
+
+  .back-link:hover {
+    color: #d64860;
+  }
+
+  .profile-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .profile-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .media-container {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .main-photo {
+    width: 100%;
+    height: 450px;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .main-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-thumbnails {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    background: #f8f8f8;
+    overflow-x: auto;
+  }
+
+  .thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    background: #ddd;
+    flex-shrink: 0;
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .thumbnail:hover {
+    border-color: #e85d75;
+  }
+
+  .video-thumbnail {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #333;
+    color: white;
+  }
+
+  .video-thumbnail::before {
+    content: '▶';
+    font-size: 24px;
+  }
+
+  .info-section {
+    margin-bottom: 15px;
+  }
+
+  .info-label {
+    font-size: 12px;
+    color: #999;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .info-value {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+  }
+
+  .status-online {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: #4CAF50;
+  }
+
+  .status-indicator {
+    width: 8px;
+    height: 8px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .compatibility-score {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 15px 0;
+  }
+
+  .compatibility-bar {
+    flex: 1;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .compatibility-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50 0%, #81C784 100%);
+  }
+
+  .compatibility-percent {
+    font-size: 16px;
+    font-weight: 700;
+    color: #4CAF50;
+    min-width: 45px;
+    text-align: right;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-btn {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .primary-btn {
+    background: #e85d75;
+    color: white;
+  }
+
+  .primary-btn:hover {
+    background: #d64860;
+  }
+
+  .primary-btn:disabled {
+    background: #90ee90;
+    color: #333;
+    cursor: not-allowed;
+    opacity: 0.8 !important;
+  }
+
+  .secondary-btn {
+    background: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+  }
+
+  .secondary-btn:hover {
+    background: #e8e8e8;
+  }
+
+  .secondary-btn:disabled {
+    background: #c8e6c9;
+    color: #333;
+    border: 1px solid #a5d6a7;
+    cursor: not-allowed;
+    opacity: 0.8 !important;
+  }
+
+  .button-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .prompt-section {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+  }
+
+  .prompt-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+  }
+
+  .prompt-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .prompt-text {
+    flex: 1;
+  }
+
+  .prompt-question {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 4px;
+  }
+
+  .play-btn {
+    width: 40px;
+    height: 40px;
+    background: #e85d75;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .play-btn:hover {
+    background: #d64860;
+  }
+
+  .detail-item {
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .detail-bullet {
+    font-weight: 600;
+    min-width: 100px;
+  }
+
+  .detail-value {
+    color: #666;
+  }
+
+  @media (max-width: 768px) {
+    .profile-row {
+      grid-template-columns: 1fr;
+    }
+
+    .button-row {
+      grid-template-columns: 1fr;
+    }
+
+    .main-photo {
+      height: 300px;
+    }
+  }
+</style>
+
+<div class="profile-container">
+  <!-- Back Button -->
+  <a href="<%= browse_users_path %>" class="back-link">
+    <span>👈</span> Back to Browse
+  </a>
+
+  <!-- First Row: Media + Basic Info -->
+  <div class="profile-row">
+    <!-- Left: Main Profile Media -->
+    <div class="media-container">
+      <div class="main-photo">
+        <% if @user.avatar.present? %>
+          <img id="mainPhoto" src="<%= @user.avatar.url(:medium) %>" alt="<%= @user.first_name %>">
+        <% else %>
+          <i class="bi bi-person-circle" style="font-size: 4rem; color: #ccc;"></i>
+        <% end %>
+      </div>
+
+      <!-- Photo Thumbnails -->
+      <div class="photo-thumbnails">
+        <!-- Additional photos -->
+        <% if @user.additional_photos.present? %>
+          <div class="thumbnail" onclick="switchPhoto('<%= @user.additional_photos.url(:medium) %>')">
+            <img src="<%= @user.additional_photos.url(:thumb) %>" alt="Photo">
+          </div>
+        <% end %>
+
+        <!-- Gallery photos -->
+        <% @user.gallery_photos.each do |photo| %>
+          <div class="thumbnail" onclick="switchPhoto('<%= photo %>')">
+            <img src="<%= photo %>" alt="Gallery">
+          </div>
+        <% end %>
+
+        <!-- Video placeholder -->
+        <div class="thumbnail video-thumbnail"></div>
+      </div>
+    </div>
+
+    <!-- Right: Basic Info & Actions -->
+    <div class="profile-card">
+      <div style="margin-bottom: 20px;">
+        <h2 style="margin: 0 0 8px 0; font-size: 24px; font-weight: 700;">
+          <%= @user.first_name %> <%= @user.last_name %>
+        </h2>
+        <div class="status-online">
+          <span class="status-indicator"></span>
+          Active Now
+        </div>
+      </div>
+
+      <div class="info-section">
+        <p class="info-value">
+          <% if @user.dob %>
+            <%= ((Date.today - @user.dob.to_date) / 365.25).round %> yrs
+          <% end %>
+          <% if @user.height %> • <%= @user.height %><% end %>
+          <% if @user.religion %> • <%= @user.religion %><% end %>
+          <% if @user.caste %>, <%= @user.caste %><% end %>
+        </p>
+      </div>
+
+      <div class="info-section">
+        <p class="info-value">
+          <% if @user.job.present? %>
+            💻 <%= @user.job %><% if @user.organization_name %> at <%= @user.organization_name %><% end %>
+          <% elsif @user.heighst_education.present? %>
+            📚 <%= @user.heighst_education %>
+          <% end %>
+        </p>
+      </div>
+
+      <div class="info-section">
+        <p class="info-value">
+          📍 Lives in <% if @user.address %><%= @user.address.split(',').first %><% else %>India<% end %>
+        </p>
+      </div>
+
+      <hr style="margin: 20px 0;">
+
+      <!-- Compatibility Score -->
+      <div style="margin-bottom: 20px;">
+        <div class="card-title">📊 AI Compatibility Score</div>
+        <div class="compatibility-score">
+          <div class="compatibility-bar">
+            <div class="compatibility-fill" style="width: <%= @user.match_score %>%;"></div>
+          </div>
+          <div class="compatibility-percent"><%= @user.match_score %>%</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <% interaction = current_user.sent_interactions.find_by(to_user: @user) %>
+        <% if interaction && interaction.interaction_type == 'interested' %>
+          <button class="action-btn primary-btn" disabled style="opacity: 0.6; cursor: not-allowed;">✓ Already Connected</button>
+        <% else %>
+          <%= button_to "💌 Express Interest", user_express_interest_path(@user), method: :post, class: "action-btn primary-btn" %>
+        <% end %>
+        <button class="action-btn secondary-btn">Send Connection Request</button>
+        <div class="button-row">
+          <% if interaction && interaction.interaction_type == 'shortlist' %>
+            <button class="action-btn secondary-btn" disabled style="opacity: 0.6; cursor: not-allowed;">⭐ Already Shortlisted</button>
+          <% else %>
+            <%= button_to "⭐ Shortlist", user_shortlist_path(@user), method: :post, class: "action-btn secondary-btn" %>
+          <% end %>
+          <% if interaction && interaction.interaction_type == 'rejected' %>
+            <button class="action-btn secondary-btn" disabled style="opacity: 0.8; cursor: not-allowed; background: #c8e6c9; color: #333; border: 1px solid #a5d6a7;">✓ Already Skipped</button>
+          <% else %>
+            <%= button_to "🚫 Skip", user_reject_path(@user), method: :post, class: "action-btn secondary-btn" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Voice/Video Prompt Section -->
+  <div class="prompt-section">
+    <div class="card-title">🗣️ Voice/Video Prompt (New Feature!)</div>
+    <div class="prompt-item">
+      <div class="prompt-text">
+        <div class="prompt-question">"🔊 My ideal weekend looks like..."</div>
+        <div style="font-size: 12px; color: #999;">► Play 0:12 audio clip</div>
+      </div>
+      <button class="play-btn">▶</button>
+    </div>
+  </div>
+
+  <!-- Second Row: Professional & Family -->
+  <div class="profile-row">
+    <!-- Professional & Education -->
+    <div class="profile-card">
+      <div class="card-title">👔 PROFESSIONAL & EDUCATION</div>
+      <div class="detail-item">
+        <span class="detail-bullet">Education:</span>
+        <span class="detail-value"><%= @user.heighst_education %></span>
+      </div>
+      <% if @user.highest_educational_details.present? %>
+        <div class="detail-item">
+          <span class="detail-bullet">Details:</span>
+          <span class="detail-value"><%= @user.highest_educational_details %></span>
+        </div>
+      <% end %>
+      <div class="detail-item">
+        <span class="detail-bullet">Income:</span>
+        <span class="detail-value"><%= @user.annual_income || "Not specified" %></span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-bullet">Willing to Relocate?</span>
+        <span class="detail-value">Yes</span>
+      </div>
+    </div>
+
+    <!-- Family & Background -->
+    <div class="profile-card">
+      <div class="card-title">🏡 FAMILY & BACKGROUND</div>
+      <div class="detail-item">
+        <span class="detail-bullet">Family Type:</span>
+        <span class="detail-value"><%= @user.family_details || "Not specified" %></span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-bullet">Father:</span>
+        <span class="detail-value"><%= @user.father_occupation || "Not specified" %></span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-bullet">Native Place:</span>
+        <span class="detail-value"><%= @user.address&.split(',')&.last || "Not specified" %></span>
+      </div>
+      <% if @user.brothers || @user.sisters %>
+        <div class="detail-item">
+          <span class="detail-bullet">Siblings:</span>
+          <span class="detail-value"><%= @user.brothers || 0 %> brothers, <%= @user.sisters || 0 %> sisters</span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Third Row: Lifestyle & Astro -->
+  <div class="profile-row">
+    <!-- Lifestyle & Interests -->
+    <div class="profile-card">
+      <div class="card-title">🍕 LIFESTYLE & INTERESTS</div>
+      <div class="detail-item">
+        <span class="detail-bullet">Diet:</span>
+        <span class="detail-value"><%= @user.food_type || "Not specified" %></span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-bullet">Habits:</span>
+        <span class="detail-value">Never</span>
+      </div>
+      <% if @user.hobbies.present? %>
+        <div class="detail-item">
+          <span class="detail-bullet">Interests:</span>
+          <span class="detail-value"><%= @user.hobbies %></span>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Astro / Horoscope -->
+    <div class="profile-card">
+      <div class="card-title">🪐 ASTRO / HOROSCOPE (Optional)</div>
+      <% if @user.dob %>
+        <div class="detail-item">
+          <span class="detail-bullet">Date of Birth:</span>
+          <span class="detail-value"><%= @user.dob.strftime("%d %b %Y") %></span>
+        </div>
+      <% end %>
+      <% if @user.time_of_birth.present? %>
+        <div class="detail-item">
+          <span class="detail-bullet">Time / Place:</span>
+          <span class="detail-value"><%= @user.time_of_birth %></span>
+        </div>
+      <% end %>
+      <div class="detail-item">
+        <span class="detail-bullet">Manglik:</span>
+        <span class="detail-value"><%= @user.manglik || "Not specified" %></span>
+      </div>
+      <% if @user.rashi.present? %>
+        <div class="detail-item">
+          <span class="detail-bullet">Rashi:</span>
+          <span class="detail-value"><%= @user.rashi %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchPhoto(src) {
+    const mainPhoto = document.getElementById('mainPhoto');
+    if (mainPhoto) {
+      mainPhoto.src = src;
+    }
+  }
+</script>

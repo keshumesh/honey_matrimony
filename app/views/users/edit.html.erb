@@ -1,0 +1,678 @@
+<style>
+  .profile-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin: -20px -20px 25px -20px;
+    padding: 0;
+    background: #f8f9fa;
+    border-radius: 12px 12px 0 0;
+    flex-wrap: wrap;
+  }
+
+  .profile-tabs .nav-link {
+    color: #666;
+    border: none;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 12px 18px;
+    position: relative;
+    transition: all 0.2s ease;
+    background: transparent;
+    border-radius: 0;
+    white-space: nowrap;
+  }
+
+  .profile-tabs .nav-link:hover {
+    color: #e85d75;
+    background: rgba(232, 93, 117, 0.05);
+  }
+
+  .profile-tabs .nav-link.active {
+    color: #e85d75;
+    background: white;
+    border-bottom: 3px solid #e85d75;
+  }
+
+  .tab-content-section {
+    display: none;
+  }
+
+  .tab-content-section.active {
+    display: block;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .form-section {
+    margin-bottom: 0;
+  }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+</style>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card shadow" style="border-radius: 12px; overflow: hidden;">
+        <div class="card-body p-0">
+          <!-- Tabbed Navigation -->
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0; background: #f8f9fa;">
+            <ul class="nav profile-tabs" role="tablist" style="margin: 0; width: 100%;">
+              <li class="nav-item">
+                <a class="nav-link active" data-tab="personal" href="#personal" role="tab">
+                  <i class="bi bi-person"></i> Personal
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-tab="physical" href="#physical" role="tab">
+                  <i class="bi bi-heart"></i> Physical
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-tab="professional" href="#professional" role="tab">
+                  <i class="bi bi-briefcase"></i> Professional
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-tab="family" href="#family" role="tab">
+                  <i class="bi bi-people"></i> Family
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-tab="additional" href="#additional" role="tab">
+                  <i class="bi bi-star"></i> Additional
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-tab="photos" href="#photos" role="tab">
+                  <i class="bi bi-image"></i> Photos
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-tab="credentials" href="#credentials" role="tab">
+                  <i class="bi bi-shield-lock"></i> Account
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Page Header -->
+          <div style="padding: 20px 20px 10px 20px;">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 style="margin: 0; font-size: 16px; font-weight: 600; color: #333;">
+                <span id="tab-title">Personal Details</span>
+              </h5>
+              <span style="font-size: 11px; color: #999; font-weight: 600;">
+                📝 Changes saved automatically
+              </span>
+            </div>
+          </div>
+
+          <!-- Status Alerts -->
+          <div style="padding: 0 20px;">
+            <% if @user.regular_user? && @user.dob.blank? %>
+              <div class="alert alert-info alert-dismissible fade show mb-3">
+                <i class="bi bi-info-circle"></i> <strong>Welcome!</strong> Complete your profile to get better matches.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+            <% end %>
+
+            <% if @user.errors.any? %>
+              <div class="alert alert-danger alert-dismissible fade show mb-3">
+                <h6 style="margin-bottom: 8px;">❌ <%= pluralize(@user.errors.count, "error") %> found:</h6>
+                <ul style="margin: 0; padding-left: 20px; font-size: 13px;">
+                  <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+            <% end %>
+          </div>
+
+          <!-- Form Content -->
+          <div style="padding: 20px;">
+            <%= form_with model: @user, local: true do |form| %>
+            <!-- Tab 1: Personal Details -->
+            <div id="personal" class="tab-content-section active form-section">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :first_name, "First Name *" %>
+                    <%= form.text_field :first_name, class: "form-control #{field_error_class(@user, :first_name)}", required: true %>
+                    <%= field_error_message(@user, :first_name) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :middle_name, "Middle Name" %>
+                    <%= form.text_field :middle_name, class: "form-control #{field_error_class(@user, :middle_name)}" %>
+                    <%= field_error_message(@user, :middle_name) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :last_name, "Last Name #{'*' unless @user.admin? || @user.manager?}" %>
+                    <%= form.text_field :last_name, class: "form-control #{field_error_class(@user, :last_name)}", required: !@user.admin? && !@user.manager? %>
+                    <%= field_error_message(@user, :last_name) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :profile_for, "Profile For" %>
+                    <%= form.select :profile_for, ["Self", "Son", "Daughter", "Brother", "Sister", "Friend"], 
+                        { include_blank: "Select..." }, class: "form-select #{field_error_class(@user, :profile_for)}" %>
+                    <%= field_error_message(@user, :profile_for) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :gender, "Gender *" %>
+                    <%= form.select :gender, [["Male", "Male"], ["Female", "Female"]], 
+                        { include_blank: "Select..." }, class: "form-select #{field_error_class(@user, :gender)}", required: true %>
+                    <%= field_error_message(@user, :gender) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :dob, "Date of Birth #{'*' unless @user.admin? || @user.manager?}" %>
+                    <%= form.date_field :dob, class: "form-control #{field_error_class(@user, :dob)}", required: !@user.admin? && !@user.manager? %>
+                    <%= field_error_message(@user, :dob) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :time_of_birth, "Time of Birth" %>
+                    <%= form.time_field :time_of_birth, class: "form-control #{field_error_class(@user, :time_of_birth)}" %>
+                    <%= field_error_message(@user, :time_of_birth) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :mobile_no, "Mobile Number *" %>
+                    <%= form.text_field :mobile_no, class: "form-control #{field_error_class(@user, :mobile_no)}", required: true %>
+                    <%= field_error_message(@user, :mobile_no) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 2: Physical & Background -->
+            <div id="physical" class="tab-content-section form-section">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :height, "Height #{'*' unless @user.admin? || @user.manager?}" %>
+                    <%= form.select :height, ["4'10\"", "4'11\"", "5'", "5'1\"", "5'2\"", "5'3\"", "5'4\"", "5'5\"", "5'6\"", "5'7\"", "5'8\"", "5'9\"", "5'10\"", "5'11\"", "6'", "6'1\"", "6'2\""], 
+                        { include_blank: "Select..." }, class: "form-select #{field_error_class(@user, :height)}" %>
+                    <%= field_error_message(@user, :height) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :complexion, "Complexion #{'*' unless @user.admin? || @user.manager?}" %>
+                    <%= form.select :complexion, ["Fair", "Very Fair", "Wheatish", "Wheatish Medium", "Wheatish Brown", "Brown", "Dark"], 
+                        { include_blank: "Select..." }, class: "form-select #{field_error_class(@user, :complexion)}" %>
+                    <%= field_error_message(@user, :complexion) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :marital_status, "Marital Status #{'*' unless @user.admin? || @user.manager?}" %>
+                    <%= form.select :marital_status, ["Never Married", "Widowed", "Divorced", "Separated"], 
+                        { include_blank: "Select...", selected: "Never Married" }, class: "form-select #{field_error_class(@user, :marital_status)}", required: !@user.admin? && !@user.manager? %>
+                    <%= field_error_message(@user, :marital_status) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :religion, "Religion #{'*' unless @user.admin? || @user.manager?}" %>
+                    <%= form.select :religion, ["Hindu", "Muslim", "Christian", "Sikh", "Buddhist", "Jain", "Jewish", "Parsi", "Other"], 
+                        { include_blank: "Select...", selected: "Hindu" }, class: "form-select #{field_error_class(@user, :religion)}", required: !@user.admin? && !@user.manager? %>
+                    <%= field_error_message(@user, :religion) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :mother_tongue, "Mother Tongue #{'*' unless @user.admin? || @user.manager?}" %>
+                    <%= form.text_field :mother_tongue, class: "form-control #{field_error_class(@user, :mother_tongue)}" %>
+                    <%= field_error_message(@user, :mother_tongue) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :caste, "Caste" %>
+                    <%= form.text_field :caste, class: "form-control #{field_error_class(@user, :caste)}" %>
+                    <%= field_error_message(@user, :caste) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :rashi, "Rashi (Star)" %>
+                    <%= form.text_field :rashi, class: "form-control #{field_error_class(@user, :rashi)}" %>
+                    <%= field_error_message(@user, :rashi) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :nakshtra, "Nakshtra (Constellation)" %>
+                    <%= form.text_field :nakshtra, class: "form-control #{field_error_class(@user, :nakshtra)}" %>
+                    <%= field_error_message(@user, :nakshtra) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :ban, "Ban" %>
+                    <%= form.text_field :ban, class: "form-control #{field_error_class(@user, :ban)}" %>
+                    <%= field_error_message(@user, :ban) %>
+                  </div>
+                </div>
+                
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :gotra, "Gotra" %>
+                    <%= form.text_field :gotra, class: "form-control #{field_error_class(@user, :gotra)}" %>
+                    <%= field_error_message(@user, :gotra) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :sub_caste, "Sub Caste" %>
+                    <%= form.text_field :sub_caste, class: "form-control #{field_error_class(@user, :sub_caste)}" %>
+                    <%= field_error_message(@user, :sub_caste) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 3: Professional Details -->
+            <div id="professional" class="tab-content-section form-section">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :heighst_education, "Highest Education" %>
+                    <%= form.select :heighst_education, ["High School","Matric","Intermediate", "Bachelor", "Master", "PhD", "Other"], 
+                        { include_blank: "Select..." }, class: "form-select #{field_error_class(@user, :heighst_education)}" %>
+                    <%= field_error_message(@user, :heighst_education) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :job, "Job Profile" %>
+                    <%= form.text_field :job, class: "form-control #{field_error_class(@user, :job)}" %>
+                    <%= field_error_message(@user, :job) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :organization_name, "Organization Name" %>
+                    <%= form.text_field :organization_name, class: "form-control #{field_error_class(@user, :organization_name)}" %>
+                    <%= field_error_message(@user, :organization_name) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :annual_income, "Annual Income" %>
+                    <%= form.text_field :annual_income, class: "form-control #{field_error_class(@user, :annual_income)}" %>
+                    <%= field_error_message(@user, :annual_income) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 4: Family Details -->
+            <div id="family" class="tab-content-section form-section">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :f_first_name, "Father's First Name" %>
+                    <%= form.text_field :f_first_name, class: "form-control #{field_error_class(@user, :f_first_name)}" %>
+                    <%= field_error_message(@user, :f_first_name) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :m_first_name, "Mother's First Name" %>
+                    <%= form.text_field :m_first_name, class: "form-control #{field_error_class(@user, :m_first_name)}" %>
+                    <%= field_error_message(@user, :m_first_name) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :brothers, "Number of Brothers" %>
+                    <%= form.number_field :brothers, class: "form-control #{field_error_class(@user, :brothers)}", min: 0 %>
+                    <%= field_error_message(@user, :brothers) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :sisters, "Number of Sisters" %>
+                    <%= form.number_field :sisters, class: "form-control #{field_error_class(@user, :sisters)}", min: 0 %>
+                    <%= field_error_message(@user, :sisters) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <%= form.label :address, "Address" %>
+                <%= form.text_area :address, class: "form-control #{field_error_class(@user, :address)}", rows: 3 %>
+                <%= field_error_message(@user, :address) %>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :father_occupation, "Father's Occupation" %>
+                    <%= form.text_field :father_occupation, class: "form-control #{field_error_class(@user, :father_occupation)}" %>
+                    <%= field_error_message(@user, :father_occupation) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :family_details, "Family Details" %>
+                    <%= form.text_area :family_details, class: "form-control #{field_error_class(@user, :family_details)}", rows: 3 %>
+                    <%= field_error_message(@user, :family_details) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 5: Additional Details -->
+            <div id="additional" class="tab-content-section form-section">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :highest_educational_details, "Highest Educational Details" %>
+                    <%= form.text_field :highest_educational_details, class: "form-control #{field_error_class(@user, :highest_educational_details)}" %>
+                    <%= field_error_message(@user, :highest_educational_details) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :food_type, "Food Type" %>
+                    <%= form.select :food_type, ["Vegetarian", "Non-Vegetarian", "Eggetarian"], 
+                        { include_blank: "Select...", selected: "Vegetarian" }, class: "form-select #{field_error_class(@user, :food_type)}" %>
+                    <%= field_error_message(@user, :food_type) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :manglik_status, "Manglik Status #{'*' unless @user.admin? || @user.manager?}" %>
+                    <%= form.select :manglik, ["Yes", "No", "Not Sure"], 
+                        { include_blank: "Select...", selected: "Not Sure" }, class: "form-select #{field_error_class(@user, :manglik_status)}" %>
+                    <%= field_error_message(@user, :manglik) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <%= form.label :hobbies, "Hobbies & Interests" %>
+                <%= form.text_area :hobbies, class: "form-control #{field_error_class(@user, :hobbies)}", rows: 3, placeholder: "e.g., Reading, Traveling, Sports..." %>
+                <%= field_error_message(@user, :hobbies) %>
+              </div>
+
+              <div class="mb-3">
+                <%= form.label :any_requirement, "Any Special Requirements" %>
+                <%= form.text_area :any_requirement, class: "form-control #{field_error_class(@user, :any_requirement)}", rows: 3, placeholder: "Any specific requirements or preferences..." %>
+                <%= field_error_message(@user, :any_requirement) %>
+              </div>
+            </div>
+
+            <!-- Tab 6: Photos & Medical -->
+            <div id="photos" class="tab-content-section form-section">
+              <% if @user.avatar.present? %>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <p class="fw-bold">Current Profile Photo:</p>
+                    <img src="<%= @user.avatar.url %>" alt="Avatar" class="img-thumbnail" style="max-width: 200px;">
+                  </div>
+                </div>
+              <% end %>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :avatar, "Profile Photo (Avatar)" %>
+                    <%= form.file_field :avatar, class: "form-control #{field_error_class(@user, :avatar)}", accept: "image/png,image/jpeg,image/gif" %>
+                    <%= field_error_message(@user, :avatar) %>
+                    <small class="text-muted">Update your profile picture (JPG, PNG, GIF)</small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :additional_photos, "Additional Photos" %>
+                    <%= form.file_field :additional_photos, class: "form-control #{field_error_class(@user, :additional_photos)}", accept: "image/png,image/jpeg,image/gif" %>
+                    <%= field_error_message(@user, :additional_photos) %>
+                    <small class="text-muted">Update additional photos (JPG, PNG, GIF)</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gallery Photos Section (Max 5 Images) -->
+              <div class="border-top pt-4 mt-4">
+                <h6 class="mb-3" style="font-weight: 600; color: #333;">
+                  <i class="bi bi-images"></i> Gallery Photos (Max 5 Images)
+                </h6>
+                
+                <!-- Display Current Gallery Photos -->
+                <% if @user.gallery_photos.any? %>
+                  <div class="mb-3">
+                    <p class="small fw-bold text-muted">Current Gallery (<%= @user.gallery_photos.length %>/5 images)</p>
+                    <div class="row">
+                      <% @user.gallery_photos.each_with_index do |photo, index| %>
+                        <div class="col-md-3 col-sm-4 col-6 mb-3">
+                          <div class="card border-0 shadow-sm position-relative">
+                            <img src="<%= photo %>" alt="Gallery Photo <%= index + 1 %>" class="card-img-top" style="height: 150px; object-fit: cover;">
+                            <div class="card-body p-2">
+                              <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Photo <%= index + 1 %></small>
+                                <%= link_to delete_gallery_photo_user_path(@user, photo: photo), method: :delete, 
+                                    data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" do %>
+                                  <i class="bi bi-trash"></i>
+                                <% end %>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                <% else %>
+                  <p class="small text-muted">No gallery photos yet. Upload up to 5 images to showcase your profile.</p>
+                <% end %>
+
+                <!-- Upload New Gallery Photos -->
+                <% if @user.gallery_photos_count_left > 0 %>
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Add Gallery Photos (<%= @user.gallery_photos_count_left %> slots remaining)</label>
+                    <div class="mb-2">
+                      <%= form.file_field :gallery_photo_files, multiple: true, class: "form-control", 
+                          accept: "image/png,image/jpeg,image/gif",
+                          data: { max_files: @user.gallery_photos_count_left } %>
+                      <small class="text-muted">
+                        Select up to <%= @user.gallery_photos_count_left %> image(s) (JPG, PNG, GIF). Maximum 5 images total.
+                      </small>
+                    </div>
+                  </div>
+                  <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                      const fileInput = document.querySelector('input[name="user[gallery_photo_files]"]');
+                      const maxFiles = parseInt(fileInput.dataset.maxFiles) || 5;
+                      
+                      fileInput.addEventListener('change', function(e) {
+                        if (e.target.files.length > maxFiles) {
+                          alert('You can upload a maximum of ' + maxFiles + ' image(s)');
+                          e.target.value = '';
+                        }
+                      });
+                    });
+                  </script>
+                <% else %>
+                  <div class="alert alert-info mb-3">
+                    <i class="bi bi-info-circle"></i> You have reached the maximum of 5 gallery images. Delete some images to add more.
+                  </div>
+                <% end %>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :blood_group, "Blood Group" %>
+                    <%= form.select :blood_group, ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-", "Not Sure"], 
+                        { include_blank: "Select..." }, class: "form-select #{field_error_class(@user, :blood_group)}" %>
+                    <%= field_error_message(@user, :blood_group) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :extra_phone_number, "Additional Phone Number" %>
+                    <%= form.text_field :extra_phone_number, class: "form-control #{field_error_class(@user, :extra_phone_number)}", placeholder: "10 digit number" %>
+                    <%= field_error_message(@user, :extra_phone_number) %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :maternal_surname, "Maternal Surname" %>
+                    <%= form.text_field :maternal_surname, class: "form-control #{field_error_class(@user, :maternal_surname)}", placeholder: "Mother's surname" %>
+                    <%= field_error_message(@user, :maternal_surname) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 7: Account Credentials -->
+            <div id="credentials" class="tab-content-section form-section">
+              <div class="mb-3">
+                <%= form.label :email, "Email Address *" %>
+                <%= form.email_field :email, class: "form-control #{field_error_class(@user, :email)}", required: true %>
+                <%= field_error_message(@user, :email) %>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :password, "Password (leave blank to keep current)" %>
+                    <%= form.password_field :password, class: "form-control #{field_error_class(@user, :password)}" %>
+                    <%= field_error_message(@user, :password) %>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <%= form.label :password_confirmation, "Confirm Password" %>
+                    <%= form.password_field :password_confirmation, class: "form-control #{field_error_class(@user, :password_confirmation)}" %>
+                    <%= field_error_message(@user, :password_confirmation) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="d-grid gap-2 mb-0 mt-4 pt-3 border-top">
+              <%= form.submit "Update Profile", class: "btn btn-primary btn-lg" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Footer Link -->
+      <div class="mt-3">
+        <%= link_to "👈 Back to Profile", user_path(@user), class: "btn btn-outline-secondary btn-sm" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tab Management & Title Update Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabTitles = {
+      personal: 'Personal Details',
+      physical: 'Physical & Background',
+      professional: 'Professional Details',
+      family: 'Family Details',
+      additional: 'Additional Details',
+      photos: 'Photos & Medical Information',
+      credentials: 'Account Credentials'
+    };
+
+    const tabLinks = document.querySelectorAll('.profile-tabs .nav-link');
+    const tabTitle = document.getElementById('tab-title');
+    
+    tabLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active class from all links and sections
+        tabLinks.forEach(l => l.classList.remove('active'));
+        document.querySelectorAll('.tab-content-section').forEach(section => {
+          section.classList.remove('active');
+        });
+        
+        // Add active class to clicked link
+        this.classList.add('active');
+        
+        // Show corresponding section
+        const tabName = this.getAttribute('data-tab');
+        const section = document.getElementById(tabName);
+        if (section) {
+          section.classList.add('active');
+          // Update title
+          if (tabTitle) {
+            tabTitle.textContent = tabTitles[tabName] || 'Profile Details';
+          }
+          // Scroll to top of the form
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  });
+</script>

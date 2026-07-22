@@ -1,0 +1,143 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <div class="card shadow">
+        <div class="card-body">
+          <!-- Header Section -->
+          <div class="border-bottom pb-4 mb-4">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <h2 class="mb-1"><%= @user.first_name %> <%= @user.middle_name %> <%= @user.last_name %></h2>
+                <p class="text-muted mb-0">
+                  <% if @user.gender %>
+                    <span class="badge bg-info"><%= @user.gender %></span>
+                  <% end %>
+                  <% if @user.marital_status %>
+                    <span class="badge bg-secondary"><%= @user.marital_status %></span>
+                  <% end %>
+                </p>
+              </div>
+              <div class="text-end">
+                <% if logged_in? && current_user == @user %>
+                  <%= link_to t('edit'), edit_user_path(@user), class: "btn btn-primary me-2" %>
+                  <%= link_to t('delete'), user_path(@user), method: :delete, data: { confirm: t('are_you_sure') }, class: "btn btn-danger" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Photos Section -->
+          <div class="border-bottom pb-4 mb-4">
+            <h5 class="mb-3"><i class="bi bi-image"></i> Photos</h5>
+            <div class="row">
+              <% if @user.avatar.present? %>
+                <div class="col-md-3 mb-3">
+                  <p class="small fw-bold text-muted">Profile Photo</p>
+                  <img src="<%= @user.avatar.url(:medium) %>" alt="Avatar" class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                </div>
+              <% end %>
+              <% if @user.additional_photos.present? %>
+                <div class="col-md-3 mb-3">
+                  <p class="small fw-bold text-muted">Additional Photo</p>
+                  <img src="<%= @user.additional_photos.url(:medium) %>" alt="Additional Photo" class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                </div>
+              <% end %>
+              
+              <!-- Gallery Photos -->
+              <% if @user.gallery_photos.any? %>
+                <% @user.gallery_photos.each_with_index do |photo, index| %>
+                  <div class="col-md-3 mb-3">
+                    <p class="small fw-bold text-muted">Gallery Photo <%= index + 1 %></p>
+                    <img src="<%= photo %>" alt="Gallery Photo <%= index + 1 %>" class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Personal Details -->
+          <div class="border-bottom pb-4 mb-4">
+            <h5 class="mb-3">Personal Details</h5>
+            <div class="row">
+              <div class="col-md-6">
+                <p><strong>Date of Birth:</strong> <%= @user.dob.strftime("%d %B, %Y") if @user.dob %></p>
+                <p><strong>Age:</strong> <%= ((Date.today - @user.dob.to_date) / 365.25).round if @user.dob %> years</p>
+                <p><strong>Height:</strong> <%= @user.height %></p>
+                <p><strong>Complexion:</strong> <%= @user.complexion %></p>
+              </div>
+              <div class="col-md-6">
+                <p><strong>Religion:</strong> <%= @user.religion %></p>
+                <p><strong>Caste:</strong> <%= @user.caste %></p>
+                <p><strong>Mother Tongue:</strong> <%= @user.mother_tongue %></p>
+                <p><strong>Rashi:</strong> <%= @user.rashi %></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Professional Details -->
+          <div class="border-bottom pb-4 mb-4">
+            <h5 class="mb-3">Professional Details</h5>
+            <div class="row">
+              <div class="col-md-6">
+                <p><strong>Education:</strong> <%= @user.heighst_education %></p>
+                <p><strong>Job Profile:</strong> <%= @user.job %></p>
+              </div>
+              <div class="col-md-6">
+                <p><strong>Organization:</strong> <%= @user.organization_name %></p>
+                <p><strong>Annual Income:</strong> <%= @user.annual_income %></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Family Details -->
+          <% if @user.f_first_name.present? || @user.m_first_name.present? || @user.brothers.present? || @user.sisters.present? %>
+            <div class="border-bottom pb-4 mb-4">
+              <h5 class="mb-3">Family Details</h5>
+              <div class="row">
+                <div class="col-md-6">
+                  <p><strong>Father's Name:</strong> <%= @user.f_first_name %> <%= @user.f_last_name %></p>
+                  <p><strong>Brothers:</strong> <%= @user.brothers || "N/A" %></p>
+                </div>
+                <div class="col-md-6">
+                  <p><strong>Mother's Name:</strong> <%= @user.m_first_name %> <%= @user.m_last_name %></p>
+                  <p><strong>Sisters:</strong> <%= @user.sisters || "N/A" %></p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Additional Info -->
+          <div class="border-bottom pb-4 mb-4">
+            <h5 class="mb-3">Additional Information</h5>
+            <div class="row">
+              <div class="col-md-6">
+                <p><strong>Mobile:</strong> <%= @user.mobile_no %></p>
+                <p><strong>Manglik Status:</strong> <%= @user.manglik || "Not specified" %></p>
+              </div>
+              <div class="col-md-6">
+                <p><strong>Member Since:</strong> <%= @user.created_at.strftime("%d %B, %Y") %></p>
+                <p><strong>Email:</strong> <%= @user.email %></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <% if @user.address.present? %>
+            <div class="border-bottom pb-4 mb-4">
+              <h5 class="mb-3">Address</h5>
+              <p><%= simple_format(@user.address) %></p>
+            </div>
+          <% end %>
+
+          <div class="mt-4">
+            <% if logged_in? && current_user == @user %>
+              <%= link_to t('back_to_home'), user_dashboard_path, class: "btn btn-secondary" %>
+            <% else %>
+              <%= link_to t('browse_profiles'), users_path, class: "btn btn-secondary" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

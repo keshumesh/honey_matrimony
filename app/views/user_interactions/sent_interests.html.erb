@@ -1,0 +1,78 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-gradient text-white">
+          <h4 class="mb-0">
+            <i class="bi bi-heart-fill"></i> <%= t('interested_profiles') %>
+          </h4>
+        </div>
+        <div class="card-body">
+          <% if @interactions.any? %>
+            <div class="row">
+              <% @interactions.each do |interaction| %>
+                <div class="col-md-4 mb-4">
+                  <div class="card h-100 interest-card">
+                    <% if interaction.to_user.avatar.present? %>
+                      <%= image_tag interaction.to_user.avatar.url, class: "card-img-top", alt: "Profile" %>
+                    <% else %>
+                      <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                        <i class="bi bi-person-circle" style="font-size: 3rem; color: #ccc;"></i>
+                      </div>
+                    <% end %>
+                    <div class="card-body">
+                      <h5 class="card-title"><%= interaction.to_user.first_name %> <%= interaction.to_user.last_name %></h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <%= interaction.to_user.gender %> • 
+                          <%= interaction.to_user.religion %> • 
+                          <%= interaction.to_user.caste %>
+                        </small>
+                      </p>
+                      <div class="d-flex gap-2">
+                        <%= link_to browse_profile_user_path(interaction.to_user), class: "btn btn-sm btn-info flex-grow-1" do %>
+                          <i class="bi bi-eye"></i> <%= t('view') %>
+                        <% end %>
+                        <%= link_to browse_profile_user_path(interaction.to_user), method: :delete, data: { confirm: t('are_you_sure') }, class: "btn btn-sm btn-danger flex-grow-1" do %>
+                          <i class="bi bi-trash"></i>
+                        <% end %>
+                      </div>
+                    </div>
+                    <div class="card-footer bg-light">
+                      <small class="text-muted">
+                        <i class="bi bi-calendar-event"></i> <%= l(interaction.created_at, format: :short) %>
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="alert alert-info" role="alert">
+              <i class="bi bi-info-circle"></i> <%= t('no_interests_yet') %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <%= link_to t('browse_profiles'), users_path, class: "btn btn-primary" %>
+        <%= link_to t('back_to_home'), user_dashboard_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .interest-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .interest-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  .bg-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+</style>

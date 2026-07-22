@@ -1,0 +1,241 @@
+<style>
+  .onboarding-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .onboarding-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .onboarding-card {
+    background: white;
+    border-radius: 16px;
+    padding: 50px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  }
+
+  .onboarding-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .onboarding-subtitle {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 30px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .form-input,
+  .form-select {
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .form-input:focus,
+  .form-select:focus {
+    outline: none;
+    border-color: #e85d75;
+    box-shadow: 0 0 0 3px rgba(232, 93, 117, 0.1);
+  }
+
+  .form-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 35px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #e85d75 0%, #f54a8b 100%);
+    color: white;
+    margin-top: 20px;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(232, 93, 117, 0.3);
+  }
+
+  .signin-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #666;
+  }
+
+  .signin-link a {
+    color: #e85d75;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .error-message {
+    background: #ffebee;
+    border: 1px solid #ef5350;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 20px;
+    color: #c62828;
+    font-size: 13px;
+  }
+
+  .progress-step {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #4CAF50;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .progress-dot {
+    width: 20px;
+    height: 20px;
+    background: #4CAF50;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
+
+  @media (max-width: 768px) {
+    .onboarding-card {
+      padding: 30px 20px;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="onboarding-container">
+  <!-- Main Content -->
+  <div class="onboarding-content">
+    <div class="onboarding-card">
+      <!-- Progress Indicator -->
+      <div class="progress-step">
+        <div class="progress-dot">✓</div>
+        Step 1 of 4
+      </div>
+
+      <!-- Title -->
+      <h1 class="onboarding-title">Let's get started ✨</h1>
+      <p class="onboarding-subtitle">Create your account and find your perfect match</p>
+
+      <!-- Form -->
+      <%= form_with(model: @user, local: true, url: signups_path, method: :post) do |form| %>
+        <% if @user.errors.any? %>
+          <div class="error-message">
+            <%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved.
+            <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <%= form.text_field :first_name, placeholder: 'Your first name', class: 'form-input', required: true %>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <%= form.text_field :last_name, placeholder: 'Your last name', class: 'form-input', required: true %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <%= form.email_field :email, placeholder: 'your.email@example.com', class: 'form-input', required: true %>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Gender</label>
+            <%= form.select :gender,
+              { 'Male' => 'Male', 'Female' => 'Female', 'Other' => 'Other' },
+              { prompt: 'Select your gender' },
+              class: 'form-select',
+              required: true %>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date of Birth</label>
+            <%= form.date_field :dob, class: 'form-input', required: true %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <%= form.password_field :password, placeholder: 'Create a strong password', class: 'form-input', required: true %>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <%= form.password_field :password_confirmation, placeholder: 'Confirm your password', class: 'form-input', required: true %>
+        </div>
+
+        <%= form.submit 'Create Account & Continue →', class: 'btn btn-primary' %>
+      <% end %>
+
+      <!-- Sign In Link -->
+      <div class="signin-link">
+        Already have an account? <a href="<%= new_session_path %>">Sign in</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,219 @@
+<style>
+  .skipped-container {
+    display: flex;
+    gap: 20px;
+    min-height: calc(100vh - 200px);
+    padding: 30px 20px;
+  }
+
+  .skipped-header {
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .skipped-header h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 24px;
+  }
+
+  .skipped-header p {
+    color: #666;
+    margin: 10px 0 0 0;
+    font-size: 14px;
+  }
+
+  .skipped-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .skipped-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .skipped-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+
+  .skipped-photo {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background: #e0e0e0;
+    position: relative;
+  }
+
+  .skipped-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .skipped-photo .default-avatar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e0e0e0;
+  }
+
+  .skipped-info {
+    padding: 15px;
+  }
+
+  .skipped-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+  }
+
+  .skipped-detail {
+    font-size: 13px;
+    color: #666;
+    margin: 5px 0;
+  }
+
+  .skipped-actions {
+    display: flex;
+    gap: 10px;
+    padding: 10px 15px;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .action-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .reconnect-btn {
+    background: #e85d75;
+    color: white;
+  }
+
+  .reconnect-btn:hover {
+    background: #d64860;
+  }
+
+  .view-btn {
+    background: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+  }
+
+  .view-btn:hover {
+    background: #e8e8e8;
+  }
+
+  .no-skipped {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .no-skipped i {
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 20px;
+  }
+
+  .no-skipped p {
+    font-size: 16px;
+    color: #666;
+  }
+
+  .back-to-browse {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    background: #667eea;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .back-to-browse:hover {
+    background: #5568d3;
+  }
+</style>
+
+<div class="container" style="max-width: 1400px; padding: 30px 20px;">
+  <!-- Header -->
+  <div class="skipped-header">
+    <h2>👋 Skipped Profiles</h2>
+    <p>Profiles you've skipped. You can reconnect with them anytime!</p>
+  </div>
+
+  <% if @skipped_interactions.any? %>
+    <!-- Skipped Profiles Grid -->
+    <div class="skipped-grid">
+      <% @skipped_interactions.each do |interaction| %>
+        <% user = interaction.to_user %>
+        <div class="skipped-card">
+          <!-- Photo Section -->
+          <div class="skipped-photo">
+            <% if user.avatar.present? %>
+              <img src="<%= user.avatar.url(:medium) %>" alt="<%= user.first_name %>">
+            <% else %>
+              <div class="default-avatar">
+                <i class="bi bi-person-circle" style="font-size: 3rem; color: #999;"></i>
+              </div>
+            <% end %>
+          </div>
+
+          <!-- Info Section -->
+          <div class="skipped-info">
+            <p class="skipped-name"><%= user.first_name %> <%= user.last_name %><% if user.dob %>, <%= ((Date.today - user.dob.to_date) / 365.25).round %><% end %></p>
+            
+            <div class="skipped-detail">
+              📍 <% if user.address %><%= user.address.split(',').first %><% else %>India<% end %>
+            </div>
+
+            <div class="skipped-detail">
+              💼 <% if user.job.present? %><%= user.job %><% elsif user.highest_educational_details.present? %><%= user.highest_educational_details %><% else %>Professional<% end %>
+            </div>
+
+            <div class="skipped-detail">
+              📊 <%= user.match_score %>% Match
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="skipped-actions">
+              <%= button_to "💌 Connect", user_express_interest_path(user), method: :post, class: "action-btn reconnect-btn" %>
+              <%= link_to "👁️ View", user_browse_profile_path(user), class: "action-btn view-btn" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <!-- No Skipped Profiles -->
+    <div class="no-skipped">
+      <i class="bi bi-check-circle"></i>
+      <p style="font-size: 18px; margin-bottom: 10px;"><strong>No Skipped Profiles</strong></p>
+      <p>You haven't skipped any profiles yet. Start browsing to find your perfect match!</p>
+      <%= link_to "← Back to Browse", browse_users_path, class: "back-to-browse" %>
+    </div>
+  <% end %>
+</div>

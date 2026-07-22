@@ -1,0 +1,108 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Sidebar Menu -->
+    <%= render 'sidebar_menu' %>
+
+    <!-- Main Content -->
+    <div class="col-lg-9">
+      <div class="row mb-4">
+        <div class="col">
+          <h2>👥 Manage Users</h2>
+          <p class="text-muted">View and manage all user accounts</p>
+        </div>
+        <div class="col-auto">
+          <%= link_to "➕ Add New User", admin_new_user_path, class: "btn btn-success btn-lg" %>
+        </div>
+      </div>
+
+      <!-- Search & Filter Bar -->
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <%= form_with url: admin_users_path, method: :get, local: true, class: "d-flex gap-2" do |f| %>
+            <div class="flex-grow-1">
+              <%= f.text_field :search, placeholder: "Search by name or email...", class: "form-control", value: params[:search] %>
+            </div>
+            <%= f.submit "🔍 Search", class: "btn btn-primary" %>
+            <% if params[:search].present? %>
+              <%= link_to "✕ Clear", admin_users_path, class: "btn btn-outline-secondary" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Users Table -->
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <% if @users.any? %>
+                <div class="table-responsive">
+                  <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Gender</th>
+                        <th>Role</th>
+                        <th>Joined</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% @users.each_with_index do |user, index| %>
+                        <tr>
+                          <td><small class="text-muted"><%= index + 1 %></small></td>
+                          <td>
+                            <strong><%= user.first_name %> <%= user.middle_name %> <%= user.last_name %></strong><br>
+                            <small class="text-muted"><%= user.profile_for %></small>
+                          </td>
+                          <td>
+                            <code><%= user.email %></code>
+                          </td>
+                          <td>
+                            <code><%= user.mobile_no %></code>
+                          </td>
+                          <td>
+                            <span class="badge bg-light text-dark">
+                              <%= user.gender %>
+                            </span>
+                          </td>
+                          <td>
+                            <span class="badge bg-<%= user.admin? ? 'danger' : user.manager? ? 'warning' : 'secondary' %> p-2">
+                              <%= user.admin? ? '👑 Admin' : user.manager? ? '👔 Manager' : '👤 User' %>
+                            </span>
+                          </td>
+                          <td>
+                            <small class="text-muted">
+                              <%= user.created_at.strftime("%d %b %Y") %>
+                            </small>
+                          </td>
+                          <td>
+                            <div class="btn-group btn-group-sm" role="group">
+                              <%= link_to "👁️ View", admin_user_path(user), class: "btn btn-outline-primary" %>
+                              <%= link_to "✏️ Edit", admin_edit_user_path(user), class: "btn btn-outline-secondary" %>
+                              <% if current_user != user %>
+                                <%= link_to "🗑️ Delete", admin_delete_user_path(user), class: "btn btn-outline-danger" %>
+                              <% end %>
+                            </div>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              <% else %>
+                <div class="alert alert-info text-center py-4">
+                  <h5>No users found</h5>
+                  <p class="text-muted mb-0">Try adjusting your search criteria</p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

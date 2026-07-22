@@ -1,0 +1,47 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Sidebar Menu -->
+    <%= render 'sidebar_menu' %>
+
+    <!-- Main Content -->
+    <div class="col-lg-9">
+      <div class="card border-danger shadow">
+        <div class="card-header bg-danger text-white">
+          <h5 class="mb-0">⚠️ Delete User Account</h5>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-warning" role="alert">
+            <strong>⚠️ Warning!</strong> This action cannot be undone.
+          </div>
+
+          <p>Are you sure you want to permanently delete the following user account?</p>
+
+          <div class="card bg-light mb-4">
+            <div class="card-body">
+              <p><strong>👤 Name:</strong> <%= @user.first_name %> <%= @user.last_name %></p>
+              <p><strong>📧 Email:</strong> <code><%= @user.email %></code></p>
+              <p><strong>📱 Mobile:</strong> <code><%= @user.mobile_no %></code></p>
+              <p class="mb-0"><strong>👑 Role:</strong> 
+                <span class="badge bg-<%= @user.admin? ? 'danger' : @user.manager? ? 'warning' : 'secondary' %>">
+                  <%= @user.admin? ? '👑 Admin' : @user.manager? ? '👔 Manager' : '👤 User' %>
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <p class="text-muted mb-4">This will permanently delete the user account and all associated profile data.</p>
+
+          <div class="d-flex gap-2">
+            <%= button_to "🗑️ Yes, Delete User", admin_user_path(@user), method: :delete, class: "btn btn-danger btn-lg", data: { confirm: "Are you absolutely sure?" } %>
+            <%= link_to "← Cancel", admin_users_path, class: "btn btn-secondary btn-lg" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
