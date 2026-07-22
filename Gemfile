@@ -68,7 +68,7 @@ end
 gem "bootstrap", "~> 5.3.0" # Use the latest Bootstrap version
 gem "sassc-rails" # For SCSS support
 
-gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.22"
 
 # PDF parsing for user imports
 gem "pdf-reader", "~> 2.11"
